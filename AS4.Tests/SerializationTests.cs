@@ -26,6 +26,21 @@ namespace AS4.Tests
   <s:Body wsu:Id=""body-id"" />
 </Envelope>";
         
+        public static string ReceiptXml =
+@"<Envelope xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:s=""http://www.w3.org/2003/05/soap-envelope"" xmlns:ebms=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/"">
+  <s:Header>
+    <ebms:Messaging>
+      <ebms:SignalMessage>
+        <ebms:MessageInfo>
+          <ebms:Timestamp>2020-01-06T00:00:00</ebms:Timestamp>
+          <ebms:MessageId>message-id</ebms:MessageId>
+        </ebms:MessageInfo>
+      </ebms:SignalMessage>
+    </ebms:Messaging>
+  </s:Header>
+  <s:Body wsu:Id=""body-id"" />
+</Envelope>";
+
         public static Envelope PullRequest = new Envelope
         {
             Header = new Header
@@ -52,12 +67,42 @@ namespace AS4.Tests
             }
         };
 
+        public static Envelope Receipt = new Envelope
+        {
+            Header = new Header
+            {
+                Messaging = new Messaging
+                {
+                    SignalMessage = new SignalMessage
+                    {
+                        MessageInfo = new MessageInfo
+                        {
+                            Timestamp = new DateTime(2020,1,6),
+                            MessageId = "message-id"
+                        }
+                    }
+                }
+            },
+            Body = new Body
+            {
+                Id="body-id"
+            }
+        };
+
         [TestMethod]
         public void PullRequestSerializesCorrectly()
         {
             var xml = Serialize(PullRequest);
 
             Assert.AreEqual(PullRequestXml, xml);
+        }
+
+        [TestMethod]
+        public void ReceiptSerializesCorrectly()
+        {
+            var xml = Serialize(Receipt);
+
+            Assert.AreEqual(ReceiptXml, xml);
         }
 
         private string Serialize(object message)
