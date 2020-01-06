@@ -8,6 +8,9 @@ namespace AS4.Soap
         public Messaging Messaging { get; set; }
         
         [XmlElement(Namespace = Namespaces.WebServiceAddressing)]
+        public To To { get; set; }
+
+        [XmlElement(Namespace = Namespaces.WebServiceAddressing)]
         public string Action { get; set; }
     }
 }

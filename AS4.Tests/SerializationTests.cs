@@ -41,6 +41,7 @@ namespace AS4.Tests
         </ebms:Receipt>
       </ebms:SignalMessage>
     </ebms:Messaging>
+    <wsa:To s:role=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh"">http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud</wsa:To>
     <wsa:Action>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt</wsa:Action>
   </s:Header>
   <s:Body wsu:Id=""body-id"" />
@@ -76,6 +77,11 @@ namespace AS4.Tests
         {
             Header = new Header
             {
+                To = new To
+                {
+                    Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
+                    Value = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud"
+                },
                 Action="http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt",
                 Messaging = new Messaging
                 {

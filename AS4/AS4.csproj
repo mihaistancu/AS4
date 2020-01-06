@@ -53,6 +53,7 @@
     <Compile Include="Soap\PullRequest.cs" />
     <Compile Include="Soap\Receipt.cs" />
     <Compile Include="Soap\SignalMessage.cs" />
+    <Compile Include="Soap\To.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
