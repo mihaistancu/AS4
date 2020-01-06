@@ -49,6 +49,7 @@
     <Compile Include="Soap\MessageInfo.cs" />
     <Compile Include="Soap\Messaging.cs" />
     <Compile Include="Soap\Namespaces.cs" />
+    <Compile Include="Soap\NonRepudiationInformation.cs" />
     <Compile Include="Soap\PullRequest.cs" />
     <Compile Include="Soap\Receipt.cs" />
     <Compile Include="Soap\SignalMessage.cs" />

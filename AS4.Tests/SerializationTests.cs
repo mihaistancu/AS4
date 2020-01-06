@@ -36,7 +36,9 @@ namespace AS4.Tests
           <ebms:MessageId>message-id</ebms:MessageId>
           <ebms:RefToMessageId>ref-to-message-id</ebms:RefToMessageId>
         </ebms:MessageInfo>
-        <ebms:Receipt />
+        <ebms:Receipt>
+          <NonRepudiationInformation xmlns=""http://docs.oasis-open.org/ebxml-bp/ebbp-signals-2.0"" />
+        </ebms:Receipt>
       </ebms:SignalMessage>
     </ebms:Messaging>
   </s:Header>
@@ -85,7 +87,7 @@ namespace AS4.Tests
                         },
                         Receipt = new Receipt
                         {
-
+                            NonRepudiationInformation = new NonRepudiationInformation()
                         }
                     }
                 }
