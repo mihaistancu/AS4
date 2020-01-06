@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using AS4.Soap;
@@ -13,7 +14,12 @@ namespace AS4.Tests
 @"<Envelope xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:s=""http://www.w3.org/2003/05/soap-envelope"" xmlns:ebms=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/"">
   <s:Header>
     <ebms:Messaging>
-      <ebms:SignalMessage />
+      <ebms:SignalMessage>
+        <ebms:MessageInfo>
+          <ebms:Timestamp>2020-01-06T00:00:00</ebms:Timestamp>
+          <ebms:MessageId>message-id</ebms:MessageId>
+        </ebms:MessageInfo>
+      </ebms:SignalMessage>
     </ebms:Messaging>
   </s:Header>
   <s:Body wsu:Id=""body-id"" />
@@ -28,7 +34,14 @@ namespace AS4.Tests
                 {
                     Messaging = new Messaging
                     {
-                        SignalMessage = new SignalMessage()
+                        SignalMessage = new SignalMessage
+                        {
+                            MessageInfo = new MessageInfo
+                            {
+                                Timestamp = new DateTime(2020,1,6),
+                                MessageId = "message-id"
+                            }
+                        }
                     }
                 },
                 Body = new Body

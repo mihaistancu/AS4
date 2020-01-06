@@ -46,6 +46,7 @@
     <Compile Include="Soap\Body.cs" />
     <Compile Include="Soap\Envelope.cs" />
     <Compile Include="Soap\Header.cs" />
+    <Compile Include="Soap\MessageInfo.cs" />
     <Compile Include="Soap\Messaging.cs" />
     <Compile Include="Soap\Namespaces.cs" />
     <Compile Include="Soap\SignalMessage.cs" />
