@@ -12,7 +12,9 @@ namespace AS4.Tests
         public static string EmptyXml =
 @"<Envelope xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:s=""http://www.w3.org/2003/05/soap-envelope"" xmlns:ebms=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/"">
   <s:Header>
-    <ebms:Messaging />
+    <ebms:Messaging>
+      <ebms:SignalMessage />
+    </ebms:Messaging>
   </s:Header>
   <s:Body wsu:Id=""body-id"" />
 </Envelope>";
@@ -24,7 +26,10 @@ namespace AS4.Tests
             {
                 Header = new Header
                 {
-                    Messaging = new Messaging()
+                    Messaging = new Messaging
+                    {
+                        SignalMessage = new SignalMessage()
+                    }
                 },
                 Body = new Body
                 {

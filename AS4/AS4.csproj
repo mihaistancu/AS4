@@ -48,6 +48,7 @@
     <Compile Include="Soap\Header.cs" />
     <Compile Include="Soap\Messaging.cs" />
     <Compile Include="Soap\Namespaces.cs" />
+    <Compile Include="Soap\SignalMessage.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
