@@ -9,7 +9,7 @@ namespace AS4.Tests
     [TestClass]
     public class SerializationTests
     {
-        const string EmptyXml = @"<?xml version=""1.0"" encoding=""utf-16""?><Envelope xmlns:s=""http://www.w3.org/2003/05/soap-envelope""><s:Header /><s:Body /></Envelope>";
+        const string EmptyXml = @"<?xml version=""1.0"" encoding=""utf-16""?><Envelope xmlns:s=""http://www.w3.org/2003/05/soap-envelope"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd""><s:Header /><s:Body wsu:Id=""body-id"" /></Envelope>";
 
         [TestMethod]
         public void SoapEnvelopeSerializesCorrectly()
@@ -17,7 +17,10 @@ namespace AS4.Tests
             var message = new Envelope
             {
                 Header = new Header(),
-                Body = new Body()
+                Body = new Body
+                {
+                    Id="body-id"
+                }
             };
 
             var xml = Serialize(message);
@@ -30,6 +33,7 @@ namespace AS4.Tests
             var serializer = new XmlSerializer(message.GetType());
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
             ns.Add("s", Namespaces.SoapEnvelope);
+            ns.Add("wsu", Namespaces.WebServiceSecurityUtility);
 
             using(var stringWriter = new StringWriter())
             using(var xmlWriter = XmlWriter.Create(stringWriter))
