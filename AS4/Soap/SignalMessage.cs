@@ -6,5 +6,8 @@ namespace AS4.Soap
     {
         [XmlElement(Namespace = Namespaces.Ebms)]
         public MessageInfo MessageInfo { get; set; }
+
+        [XmlElement(Namespace = Namespaces.Ebms)]
+        public PullRequest PullRequest { get; set; }
     }
 }

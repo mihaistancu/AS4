@@ -19,6 +19,7 @@ namespace AS4.Tests
           <ebms:Timestamp>2020-01-06T00:00:00</ebms:Timestamp>
           <ebms:MessageId>message-id</ebms:MessageId>
         </ebms:MessageInfo>
+        <ebms:PullRequest mpc=""mpc-id"" />
       </ebms:SignalMessage>
     </ebms:Messaging>
   </s:Header>
@@ -40,6 +41,10 @@ namespace AS4.Tests
                             {
                                 Timestamp = new DateTime(2020,1,6),
                                 MessageId = "message-id"
+                            },
+                            PullRequest = new PullRequest
+                            {
+                                MessagePartitionChannel = "mpc-id"
                             }
                         }
                     }
