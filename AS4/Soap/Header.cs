@@ -2,8 +2,9 @@
 
 namespace AS4.Soap
 {
-    [XmlType(Namespace = Namespaces.SoapEnvelope)]
     public class Header
     {
+        [XmlElement(Namespace = Namespaces.Ebms)]
+        public Messaging Messaging { get; set; }
     }
 }

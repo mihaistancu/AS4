@@ -9,14 +9,23 @@ namespace AS4.Tests
     [TestClass]
     public class SerializationTests
     {
-        const string EmptyXml = @"<?xml version=""1.0"" encoding=""utf-16""?><Envelope xmlns:s=""http://www.w3.org/2003/05/soap-envelope"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd""><s:Header /><s:Body wsu:Id=""body-id"" /></Envelope>";
+        public static string EmptyXml =
+@"<Envelope xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:s=""http://www.w3.org/2003/05/soap-envelope"" xmlns:ebms=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/"">
+  <s:Header>
+    <ebms:Messaging />
+  </s:Header>
+  <s:Body wsu:Id=""body-id"" />
+</Envelope>";
 
         [TestMethod]
         public void SoapEnvelopeSerializesCorrectly()
         {
             var message = new Envelope
             {
-                Header = new Header(),
+                Header = new Header
+                {
+                    Messaging = new Messaging()
+                },
                 Body = new Body
                 {
                     Id="body-id"
@@ -29,14 +38,22 @@ namespace AS4.Tests
         }
 
         private string Serialize(object message)
-        {   
+        {
+            var settings = new XmlWriterSettings
+            {
+                Indent = true,
+                IndentChars = ("  "),
+                OmitXmlDeclaration = true
+            };
+
             var serializer = new XmlSerializer(message.GetType());
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
             ns.Add("s", Namespaces.SoapEnvelope);
             ns.Add("wsu", Namespaces.WebServiceSecurityUtility);
+            ns.Add("ebms", Namespaces.Ebms);
 
             using(var stringWriter = new StringWriter())
-            using(var xmlWriter = XmlWriter.Create(stringWriter))
+            using(var xmlWriter = XmlWriter.Create(stringWriter, settings))
             {
                 serializer.Serialize(xmlWriter, message, ns);
                 return stringWriter.ToString();

@@ -2,7 +2,6 @@
 
 namespace AS4.Soap
 {
-    [XmlType(Namespace = Namespaces.SoapEnvelope)]
     public class Body
     {
         [XmlAttribute(Namespace = Namespaces.WebServiceSecurityUtility)]
