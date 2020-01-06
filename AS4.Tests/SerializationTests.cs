@@ -27,7 +27,7 @@ namespace AS4.Tests
 </Envelope>";
         
         public static string ReceiptXml =
-@"<Envelope xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:s=""http://www.w3.org/2003/05/soap-envelope"" xmlns:ebms=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/"">
+@"<Envelope xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:ebbp=""http://docs.oasis-open.org/ebxml-bp/ebbp-signals-2.0"" xmlns:s=""http://www.w3.org/2003/05/soap-envelope"" xmlns:ebms=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/"" xmlns:wsa=""http://www.w3.org/2005/08/addressing"">
   <s:Header>
     <ebms:Messaging>
       <ebms:SignalMessage>
@@ -37,10 +37,11 @@ namespace AS4.Tests
           <ebms:RefToMessageId>ref-to-message-id</ebms:RefToMessageId>
         </ebms:MessageInfo>
         <ebms:Receipt>
-          <NonRepudiationInformation xmlns=""http://docs.oasis-open.org/ebxml-bp/ebbp-signals-2.0"" />
+          <ebbp:NonRepudiationInformation />
         </ebms:Receipt>
       </ebms:SignalMessage>
     </ebms:Messaging>
+    <wsa:Action>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt</wsa:Action>
   </s:Header>
   <s:Body wsu:Id=""body-id"" />
 </Envelope>";
@@ -75,6 +76,7 @@ namespace AS4.Tests
         {
             Header = new Header
             {
+                Action="http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt",
                 Messaging = new Messaging
                 {
                     SignalMessage = new SignalMessage
@@ -128,6 +130,8 @@ namespace AS4.Tests
             ns.Add("s", Namespaces.SoapEnvelope);
             ns.Add("wsu", Namespaces.WebServiceSecurityUtility);
             ns.Add("ebms", Namespaces.Ebms);
+            ns.Add("ebbp", Namespaces.Ebbp);
+            ns.Add("wsa", Namespaces.WebServiceAddressing);
 
             using(var stringWriter = new StringWriter())
             using(var xmlWriter = XmlWriter.Create(stringWriter, settings))
