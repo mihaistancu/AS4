@@ -43,10 +43,11 @@
   <ItemGroup>
     <Compile Include="As4Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SoapBody.cs" />
-    <Compile Include="SoapEnvelope.cs" />
-    <Compile Include="SoapHeader.cs" />
+    <Compile Include="Soap\Body.cs" />
+    <Compile Include="Soap\Envelope.cs" />
+    <Compile Include="Soap\Header.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

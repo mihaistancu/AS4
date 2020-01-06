@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using AS4.Soap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AS4.Tests
@@ -13,10 +14,10 @@ namespace AS4.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            var message = new SoapEnvelope
+            var message = new Envelope
             {
-                Header = new SoapHeader(),
-                Body = new SoapBody()
+                Header = new Header(),
+                Body = new Body()
             };
 
             var xml = Serialize(message);
@@ -28,7 +29,7 @@ namespace AS4.Tests
         {   
             var serializer = new XmlSerializer(message.GetType());
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-            ns.Add("s", SoapEnvelope.Namespace);
+            ns.Add("s", Envelope.Namespace);
 
             using(var stringWriter = new StringWriter())
             using(var xmlWriter = XmlWriter.Create(stringWriter))

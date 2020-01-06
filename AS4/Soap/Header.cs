@@ -1,9 +1,9 @@
 ﻿using System.Xml.Serialization;
 
-namespace AS4
+namespace AS4.Soap
 {
-    [XmlType(TypeName="Body", Namespace = Namespace)]
-    public class SoapBody
+    [XmlType(Namespace = Namespace)]
+    public class Header
     {
         public const string Namespace = "http://www.w3.org/2003/05/soap-envelope";
     }
