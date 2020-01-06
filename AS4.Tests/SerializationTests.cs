@@ -36,6 +36,7 @@ namespace AS4.Tests
           <ebms:MessageId>message-id</ebms:MessageId>
           <ebms:RefToMessageId>ref-to-message-id</ebms:RefToMessageId>
         </ebms:MessageInfo>
+        <ebms:Receipt />
       </ebms:SignalMessage>
     </ebms:Messaging>
   </s:Header>
@@ -81,6 +82,10 @@ namespace AS4.Tests
                             Timestamp = new DateTime(2020,1,6),
                             MessageId = "message-id",
                             RefToMessageId = "ref-to-message-id"
+                        },
+                        Receipt = new Receipt
+                        {
+
                         }
                     }
                 }
