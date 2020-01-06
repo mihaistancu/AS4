@@ -8,14 +8,15 @@ namespace AS4.Tests
     [TestClass]
     public class SerializationTests
     {
-        const string EmptyXml = @"<?xml version=""1.0"" encoding=""utf-16""?><Envelope xmlns:s=""http://www.w3.org/2003/05/soap-envelope""><s:Header /></Envelope>";
+        const string EmptyXml = @"<?xml version=""1.0"" encoding=""utf-16""?><Envelope xmlns:s=""http://www.w3.org/2003/05/soap-envelope""><s:Header /><s:Body /></Envelope>";
 
         [TestMethod]
         public void TestMethod1()
         {
             var message = new SoapEnvelope
             {
-                Header = new SoapHeader()
+                Header = new SoapHeader(),
+                Body = new SoapBody()
             };
 
             var xml = Serialize(message);
