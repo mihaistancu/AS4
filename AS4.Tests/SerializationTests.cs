@@ -12,7 +12,7 @@ namespace AS4.Tests
         const string EmptyXml = @"<?xml version=""1.0"" encoding=""utf-16""?><Envelope xmlns:s=""http://www.w3.org/2003/05/soap-envelope""><s:Header /><s:Body /></Envelope>";
 
         [TestMethod]
-        public void TestMethod1()
+        public void SoapEnvelopeSerializesCorrectly()
         {
             var message = new Envelope
             {
@@ -29,7 +29,7 @@ namespace AS4.Tests
         {   
             var serializer = new XmlSerializer(message.GetType());
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-            ns.Add("s", Envelope.Namespace);
+            ns.Add("s", Namespaces.SoapEnvelope);
 
             using(var stringWriter = new StringWriter())
             using(var xmlWriter = XmlWriter.Create(stringWriter))

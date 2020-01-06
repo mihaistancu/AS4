@@ -46,6 +46,7 @@
     <Compile Include="Soap\Body.cs" />
     <Compile Include="Soap\Envelope.cs" />
     <Compile Include="Soap\Header.cs" />
+    <Compile Include="Soap\Namespaces.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
