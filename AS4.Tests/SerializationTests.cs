@@ -10,7 +10,7 @@ namespace AS4.Tests
     [TestClass]
     public class SerializationTests
     {
-        public static string EmptyXml =
+        public static string PullRequestXml =
 @"<Envelope xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:s=""http://www.w3.org/2003/05/soap-envelope"" xmlns:ebms=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/"">
   <s:Header>
     <ebms:Messaging>
@@ -25,39 +25,39 @@ namespace AS4.Tests
   </s:Header>
   <s:Body wsu:Id=""body-id"" />
 </Envelope>";
-
-        [TestMethod]
-        public void SoapEnvelopeSerializesCorrectly()
+        
+        public static Envelope PullRequest = new Envelope
         {
-            var message = new Envelope
+            Header = new Header
             {
-                Header = new Header
+                Messaging = new Messaging
                 {
-                    Messaging = new Messaging
+                    SignalMessage = new SignalMessage
                     {
-                        SignalMessage = new SignalMessage
+                        MessageInfo = new MessageInfo
                         {
-                            MessageInfo = new MessageInfo
-                            {
-                                Timestamp = new DateTime(2020,1,6),
-                                MessageId = "message-id"
-                            },
-                            PullRequest = new PullRequest
-                            {
-                                MessagePartitionChannel = "mpc-id"
-                            }
+                            Timestamp = new DateTime(2020,1,6),
+                            MessageId = "message-id"
+                        },
+                        PullRequest = new PullRequest
+                        {
+                            MessagePartitionChannel = "mpc-id"
                         }
                     }
-                },
-                Body = new Body
-                {
-                    Id="body-id"
                 }
-            };
+            },
+            Body = new Body
+            {
+                Id="body-id"
+            }
+        };
 
-            var xml = Serialize(message);
+        [TestMethod]
+        public void PullRequestSerializesCorrectly()
+        {
+            var xml = Serialize(PullRequest);
 
-            Assert.AreEqual(EmptyXml, xml);
+            Assert.AreEqual(PullRequestXml, xml);
         }
 
         private string Serialize(object message)
