@@ -6,5 +6,6 @@ namespace AS4.Soap
     {
         public DateTime Timestamp { get; set; }
         public string MessageId { get; set; }
+        public string RefToMessageId { get; set; }
     }
 }

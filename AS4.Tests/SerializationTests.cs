@@ -34,6 +34,7 @@ namespace AS4.Tests
         <ebms:MessageInfo>
           <ebms:Timestamp>2020-01-06T00:00:00</ebms:Timestamp>
           <ebms:MessageId>message-id</ebms:MessageId>
+          <ebms:RefToMessageId>ref-to-message-id</ebms:RefToMessageId>
         </ebms:MessageInfo>
       </ebms:SignalMessage>
     </ebms:Messaging>
@@ -78,7 +79,8 @@ namespace AS4.Tests
                         MessageInfo = new MessageInfo
                         {
                             Timestamp = new DateTime(2020,1,6),
-                            MessageId = "message-id"
+                            MessageId = "message-id",
+                            RefToMessageId = "ref-to-message-id"
                         }
                     }
                 }
