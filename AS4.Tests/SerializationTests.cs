@@ -89,7 +89,10 @@ namespace AS4.Tests
           <ebms:MessageId>message-id</ebms:MessageId>
           <ebms:RefToMessageId>ref-to-message-id</ebms:RefToMessageId>
         </ebms:MessageInfo>
-        <ebms:Error />
+        <ebms:Error category=""Content"" errorCode=""EBMS:0004"" origin=""ebMS"" severity=""failure"" shortDescription=""Other"">
+          <ebms:Description>error description</ebms:Description>
+          <ebms:ErrorDetail>error detail</ebms:ErrorDetail>
+        </ebms:Error>
       </ebms:SignalMessage>
     </ebms:Messaging>
     <wsa:To s:role=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh"">http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud</wsa:To>
@@ -329,7 +332,13 @@ namespace AS4.Tests
                         },
                         Error = new Error
                         {
-                            
+                            Category = "Content",
+                            ErrorCode = "EBMS:0004",
+                            Origin = "ebMS",
+                            Severity = "failure",
+                            ShortDescription = "Other",
+                            Description = "error description",
+                            ErrorDetail = "error detail"
                         }
                     }
                 }
