@@ -49,6 +49,7 @@ namespace AS4.Tests
           <ebms:Timestamp>2020-01-05T00:00:00</ebms:Timestamp>
           <ebms:MessageId>other-message-id</ebms:MessageId>
         </ebms:MessageInfo>
+        <ebms:PartyInfo />
       </mh:UserMessage>
     </mh:RoutingInput>
   </s:Header>
@@ -103,6 +104,10 @@ namespace AS4.Tests
                         {
                             Timestamp = new DateTime(2020,1,5),
                             MessageId = "other-message-id"
+                        },
+                        PartyInfo = new PartyInfo
+                        {
+
                         }
                     }
                 },
