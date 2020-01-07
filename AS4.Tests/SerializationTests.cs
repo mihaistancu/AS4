@@ -33,8 +33,8 @@ namespace AS4.Tests
       <ebms:SignalMessage>
         <ebms:MessageInfo>
           <ebms:Timestamp>2020-01-06T00:00:00</ebms:Timestamp>
-          <ebms:MessageId>message-id</ebms:MessageId>
-          <ebms:RefToMessageId>ref-to-message-id</ebms:RefToMessageId>
+          <ebms:MessageId>receipt-message-id</ebms:MessageId>
+          <ebms:RefToMessageId>user-message-id</ebms:RefToMessageId>
         </ebms:MessageInfo>
         <ebms:Receipt>
           <ebbp:NonRepudiationInformation />
@@ -47,7 +47,7 @@ namespace AS4.Tests
       <mh:UserMessage mpc=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.receipt"">
         <ebms:MessageInfo>
           <ebms:Timestamp>2020-01-05T00:00:00</ebms:Timestamp>
-          <ebms:MessageId>other-message-id</ebms:MessageId>
+          <ebms:MessageId>user-message-id</ebms:MessageId>
         </ebms:MessageInfo>
         <ebms:PartyInfo>
           <ebms:From>
@@ -86,8 +86,8 @@ namespace AS4.Tests
       <ebms:SignalMessage>
         <ebms:MessageInfo>
           <ebms:Timestamp>2020-01-06T00:00:00</ebms:Timestamp>
-          <ebms:MessageId>message-id</ebms:MessageId>
-          <ebms:RefToMessageId>ref-to-message-id</ebms:RefToMessageId>
+          <ebms:MessageId>error-message-id</ebms:MessageId>
+          <ebms:RefToMessageId>user-message-id</ebms:RefToMessageId>
         </ebms:MessageInfo>
         <ebms:Error category=""Content"" errorCode=""EBMS:0004"" origin=""ebMS"" severity=""failure"" shortDescription=""Other"">
           <ebms:Description>error description</ebms:Description>
@@ -101,7 +101,7 @@ namespace AS4.Tests
       <mh:UserMessage mpc=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.error"">
         <ebms:MessageInfo>
           <ebms:Timestamp>2020-01-05T00:00:00</ebms:Timestamp>
-          <ebms:MessageId>other-message-id</ebms:MessageId>
+          <ebms:MessageId>user-message-id</ebms:MessageId>
         </ebms:MessageInfo>
         <ebms:PartyInfo>
           <ebms:From>
@@ -197,99 +197,7 @@ namespace AS4.Tests
                 Id="body-id"
             }
         };
-
-        public static Envelope Receipt = new Envelope
-        {
-            Header = new Header
-            {
-                To = new To
-                {
-                    Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
-                    Value = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud"
-                },
-                Action="http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt",
-                RoutingInput = new RoutingInput
-                {
-                    IsReferenceParameter = true,
-                    MustUnderstandSerializedValue = false,
-                    Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
-                    UserMessage = new Soap.UserMessage
-                    {
-                        MessagePartitionChannel = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.receipt",
-                        MessageInfo = new MessageInfo
-                        {
-                            Timestamp = new DateTime(2020,1,5),
-                            MessageId = "other-message-id"
-                        },
-                        PartyInfo = new PartyInfo
-                        {
-                            From = new Party
-                            {
-                                PartyId = new PartyId
-                                {
-                                    Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                    Value = "party-1"
-                                },
-                                Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
-                            },
-                            To = new Party
-                            {
-                                PartyId = new PartyId
-                                {
-                                    Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                    Value = "party-2"
-                                },
-                                Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
-                            }
-                        },
-                        CollaborationInfo = new CollaborationInfo
-                        {
-                            Service = new Service
-                            {
-                                Type = "urn:eu:europa:ec:dgempl:eessi",
-                                Value = "BusinessMessaging"
-                            },
-                            Action = "Send.response",
-                            ConversationId = "conversation-id"
-                        },
-                        PayloadInfo = new PayloadInfo
-                        {
-                            PartInfo = new PartInfo
-                            {
-                                Reference = "cid:DefaultSED",
-                                PartProperties = new []
-                                {
-                                    new Property { Name = "PartType",  Value = "SED" },
-                                    new Property { Name = "MimeType",  Value = "application/xml" },
-                                    new Property { Name = "CompressionType",  Value = "application/gzip" }
-                                }
-                            }
-                        }
-                    }
-                },
-                Messaging = new Messaging
-                {
-                    SignalMessage = new SignalMessage
-                    {
-                        MessageInfo = new MessageInfo
-                        {
-                            Timestamp = new DateTime(2020,1,6),
-                            MessageId = "message-id",
-                            RefToMessageId = "ref-to-message-id"
-                        },
-                        Receipt = new Receipt
-                        {
-                            NonRepudiationInformation = new NonRepudiationInformation()
-                        }
-                    }
-                }
-            },
-            Body = new Body
-            {
-                Id="body-id"
-            }
-        };
-
+        
         public static Envelope Error = new Envelope
         {
             Header = new Header
@@ -399,7 +307,27 @@ namespace AS4.Tests
         [TestMethod]
         public void ReceiptSerializesCorrectly()
         {
-            var xml = Serialize(Receipt);
+            var userMessage = new UserMessageDetails
+            {
+                Timestamp = new DateTime(2020, 1, 5),
+                MessageId = "user-message-id",
+                SenderId = "party-1",
+                SenderRole = "urn:eu:europa:ec:dgempl:eessi:ir:institution",
+                ReceiverId = "party-2",
+                ReceiverRole = "urn:eu:europa:ec:dgempl:eessi:ir:institution",
+                ConversationId = "conversation-id"
+            };
+
+            var receipt = new ReceiptDetails
+            {
+                Timestamp = new DateTime(2020, 1, 6),
+                MessageId = "receipt-message-id",
+                UserMessage = userMessage
+            };
+
+            var message = MessageFactory.Create(receipt);
+
+            var xml = Serialize(message);
 
             Assert.AreEqual(ReceiptXml, xml);
         }
@@ -415,7 +343,7 @@ namespace AS4.Tests
         [TestMethod]
         public void UserMessageSerializesCorrectly()
         {
-            var userMessage = new UserMessage
+            var userMessage = new UserMessageDetails
             {
                 Timestamp = new DateTime(2020, 1, 6),
                 MessageId = "message-id",

@@ -2,7 +2,7 @@
 
 namespace AS4
 {
-    public class UserMessage
+    public class UserMessageDetails
     {
         public DateTime Timestamp { get; set; }
         public string MessageId { get; set; }

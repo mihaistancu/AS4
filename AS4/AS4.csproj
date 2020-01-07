@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserMessage.cs" />
+    <Compile Include="ReceiptDetails.cs" />
+    <Compile Include="UserMessageDetails.cs" />
     <Compile Include="MessageFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Soap\Body.cs" />

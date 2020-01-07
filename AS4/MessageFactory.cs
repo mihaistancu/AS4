@@ -4,7 +4,7 @@ namespace AS4
 {
     public class MessageFactory
     {
-        public static Envelope Create(UserMessage userMessage)
+        public static Envelope Create(UserMessageDetails userMessage)
         {
             return new Envelope
             {
@@ -62,6 +62,102 @@ namespace AS4
                                         new Property {Name = "CompressionType", Value = "application/gzip"}
                                     }
                                 }
+                            }
+                        }
+                    }
+                },
+                Body = new Body
+                {
+                    Id = "body-id"
+                }
+            };
+        }
+
+        public static Envelope Create(ReceiptDetails receipt)
+        {
+            return new Envelope
+            {
+                Header = new Header
+                {
+                    To = new To
+                    {
+                        Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
+                        Value = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud"
+                    },
+                    Action = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt",
+                    RoutingInput = new RoutingInput
+                    {
+                        IsReferenceParameter = true,
+                        MustUnderstandSerializedValue = false,
+                        Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
+                        UserMessage = new Soap.UserMessage
+                        {
+                            MessagePartitionChannel =
+                                "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.receipt",
+                            MessageInfo = new MessageInfo
+                            {
+                                Timestamp = receipt.UserMessage.Timestamp,
+                                MessageId = receipt.UserMessage.MessageId
+                            },
+                            PartyInfo = new PartyInfo
+                            {
+                                From = new Party
+                                {
+                                    PartyId = new PartyId
+                                    {
+                                        Type = "urn:eu:europa:ec:dgempl:eessi:ir",
+                                        Value = receipt.UserMessage.SenderId
+                                    },
+                                    Role = receipt.UserMessage.SenderRole
+                                },
+                                To = new Party
+                                {
+                                    PartyId = new PartyId
+                                    {
+                                        Type = "urn:eu:europa:ec:dgempl:eessi:ir",
+                                        Value = receipt.UserMessage.ReceiverId
+                                    },
+                                    Role = receipt.UserMessage.ReceiverRole
+                                }
+                            },
+                            CollaborationInfo = new CollaborationInfo
+                            {
+                                Service = new Service
+                                {
+                                    Type = "urn:eu:europa:ec:dgempl:eessi",
+                                    Value = "BusinessMessaging"
+                                },
+                                Action = "Send.response",
+                                ConversationId = receipt.UserMessage.ConversationId
+                            },
+                            PayloadInfo = new PayloadInfo
+                            {
+                                PartInfo = new PartInfo
+                                {
+                                    Reference = "cid:DefaultSED",
+                                    PartProperties = new[]
+                                    {
+                                        new Property {Name = "PartType", Value = "SED"},
+                                        new Property {Name = "MimeType", Value = "application/xml"},
+                                        new Property {Name = "CompressionType", Value = "application/gzip"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    Messaging = new Messaging
+                    {
+                        SignalMessage = new SignalMessage
+                        {
+                            MessageInfo = new MessageInfo
+                            {
+                                Timestamp = receipt.Timestamp,
+                                MessageId = receipt.MessageId,
+                                RefToMessageId = receipt.UserMessage.MessageId
+                            },
+                            Receipt = new Receipt
+                            {
+                                NonRepudiationInformation = new NonRepudiationInformation()
                             }
                         }
                     }
