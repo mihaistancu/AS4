@@ -96,7 +96,7 @@ namespace AS4.Tests
       </ebms:SignalMessage>
     </ebms:Messaging>
     <wsa:To s:role=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh"">http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud</wsa:To>
-    <wsa:Action>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt</wsa:Action>
+    <wsa:Action>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.error</wsa:Action>
     <mh:RoutingInput wsa:IsReferenceParameter=""true"" s:MustUnderstandSerializedValue=""false"" s:role=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh"">
       <mh:UserMessage mpc=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.error"">
         <ebms:MessageInfo>
@@ -198,104 +198,6 @@ namespace AS4.Tests
             }
         };
         
-        public static Envelope Error = new Envelope
-        {
-            Header = new Header
-            {
-                To = new To
-                {
-                    Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
-                    Value = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud"
-                },
-                Action="http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt",
-                RoutingInput = new RoutingInput
-                {
-                    IsReferenceParameter = true,
-                    MustUnderstandSerializedValue = false,
-                    Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
-                    UserMessage = new Soap.UserMessage
-                    {
-                        MessagePartitionChannel = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.error",
-                        MessageInfo = new MessageInfo
-                        {
-                            Timestamp = new DateTime(2020,1,5),
-                            MessageId = "other-message-id"
-                        },
-                        PartyInfo = new PartyInfo
-                        {
-                            From = new Party
-                            {
-                                PartyId = new PartyId
-                                {
-                                    Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                    Value = "party-1"
-                                },
-                                Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
-                            },
-                            To = new Party
-                            {
-                                PartyId = new PartyId
-                                {
-                                    Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                    Value = "party-2"
-                                },
-                                Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
-                            }
-                        },
-                        CollaborationInfo = new CollaborationInfo
-                        {
-                            Service = new Service
-                            {
-                                Type = "urn:eu:europa:ec:dgempl:eessi",
-                                Value = "BusinessMessaging"
-                            },
-                            Action = "Send.response",
-                            ConversationId = "conversation-id"
-                        },
-                        PayloadInfo = new PayloadInfo
-                        {
-                            PartInfo = new PartInfo
-                            {
-                                Reference = "cid:DefaultSED",
-                                PartProperties = new []
-                                {
-                                    new Property { Name = "PartType",  Value = "SED" },
-                                    new Property { Name = "MimeType",  Value = "application/xml" },
-                                    new Property { Name = "CompressionType",  Value = "application/gzip" }
-                                }
-                            }
-                        }
-                    }
-                },
-                Messaging = new Messaging
-                {
-                    SignalMessage = new SignalMessage
-                    {
-                        MessageInfo = new MessageInfo
-                        {
-                            Timestamp = new DateTime(2020,1,6),
-                            MessageId = "message-id",
-                            RefToMessageId = "ref-to-message-id"
-                        },
-                        Error = new Error
-                        {
-                            Category = "Content",
-                            ErrorCode = "EBMS:0004",
-                            Origin = "ebMS",
-                            Severity = "failure",
-                            ShortDescription = "Other",
-                            Description = "error description",
-                            ErrorDetail = "error detail"
-                        }
-                    }
-                }
-            },
-            Body = new Body
-            {
-                Id="body-id"
-            }
-        };
-        
         [TestMethod]
         public void PullRequestSerializesCorrectly()
         {
@@ -335,7 +237,31 @@ namespace AS4.Tests
         [TestMethod]
         public void ErrorSerializesCorrectly()
         {
-            var xml = Serialize(Error);
+            var userMessage = new UserMessageDetails
+            {
+                Timestamp = new DateTime(2020, 1, 5),
+                MessageId = "user-message-id",
+                SenderId = "party-1",
+                SenderRole = "urn:eu:europa:ec:dgempl:eessi:ir:institution",
+                ReceiverId = "party-2",
+                ReceiverRole = "urn:eu:europa:ec:dgempl:eessi:ir:institution",
+                ConversationId = "conversation-id"
+            };
+
+            var error = new ErrorDetails
+            {
+                Timestamp = new DateTime(2020, 1, 6),
+                MessageId = "error-message-id",
+                ErrorCode = "EBMS:0004",
+                ShortDescription = "Other",
+                Description = "error description",
+                Details = "error detail",
+                UserMessage = userMessage
+            };
+
+            var message = MessageFactory.Create(error);
+
+            var xml = Serialize(message);
 
             Assert.AreEqual(ErrorXml, xml);
         }
