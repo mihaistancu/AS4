@@ -60,7 +60,7 @@ namespace AS4.Tests
           </ebms:To>
         </ebms:PartyInfo>
         <ebms:CollaborationInfo>
-          <ebms:Service>urn:eu:europa:ec:dgempl:eessi</ebms:Service>
+          <ebms:Service type=""urn:eu:europa:ec:dgempl:eessi"">BusinessMessaging</ebms:Service>
           <ebms:Action>Send.response</ebms:Action>
           <ebms:ConversationId>conversation-id</ebms:ConversationId>
         </ebms:CollaborationInfo>
@@ -142,7 +142,11 @@ namespace AS4.Tests
                         },
                         CollaborationInfo = new CollaborationInfo
                         {
-                            Service = "urn:eu:europa:ec:dgempl:eessi",
+                            Service = new Service
+                            {
+                                Type = "urn:eu:europa:ec:dgempl:eessi",
+                                Value = "BusinessMessaging"
+                            },
                             Action = "Send.response",
                             ConversationId = "conversation-id"
                         }
