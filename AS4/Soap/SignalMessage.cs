@@ -12,5 +12,8 @@ namespace AS4.Soap
 
         [XmlElement(Namespace = Namespaces.Ebms)]
         public Receipt Receipt { get; set; }
+
+        [XmlElement(Namespace = Namespaces.Ebms)]
+        public Error Error { get; set; }
     }
 }
