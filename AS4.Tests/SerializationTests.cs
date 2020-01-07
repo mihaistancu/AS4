@@ -49,7 +49,16 @@ namespace AS4.Tests
           <ebms:Timestamp>2020-01-05T00:00:00</ebms:Timestamp>
           <ebms:MessageId>other-message-id</ebms:MessageId>
         </ebms:MessageInfo>
-        <ebms:PartyInfo />
+        <ebms:PartyInfo>
+          <ebms:From>
+            <ebms:PartyId>party-1</ebms:PartyId>
+            <ebms:Role>urn:eu:europa:ec:dgempl:eessi:ir:institution</ebms:Role>
+          </ebms:From>
+          <ebms:To>
+            <ebms:PartyId>party-2</ebms:PartyId>
+            <ebms:Role>urn:eu:europa:ec:dgempl:eessi:ir:institution</ebms:Role>
+          </ebms:To>
+        </ebms:PartyInfo>
       </mh:UserMessage>
     </mh:RoutingInput>
   </s:Header>
@@ -107,7 +116,16 @@ namespace AS4.Tests
                         },
                         PartyInfo = new PartyInfo
                         {
-
+                            From = new Party
+                            {
+                                PartyId = "party-1",
+                                Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
+                            },
+                            To = new Party
+                            {
+                                PartyId = "party-2",
+                                Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
+                            }
                         }
                     }
                 },
