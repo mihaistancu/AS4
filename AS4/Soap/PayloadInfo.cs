@@ -2,6 +2,6 @@
 {
     public class PayloadInfo
     {
-
+        public PartInfo PartInfo { get; set; }
     }
 }

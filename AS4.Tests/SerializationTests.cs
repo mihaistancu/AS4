@@ -64,6 +64,9 @@ namespace AS4.Tests
           <ebms:Action>Send.response</ebms:Action>
           <ebms:ConversationId>conversation-id</ebms:ConversationId>
         </ebms:CollaborationInfo>
+        <ebms:PayloadInfo>
+          <ebms:PartInfo href=""cid:DefaultSED"" />
+        </ebms:PayloadInfo>
       </mh:UserMessage>
     </mh:RoutingInput>
   </s:Header>
@@ -149,6 +152,13 @@ namespace AS4.Tests
                             },
                             Action = "Send.response",
                             ConversationId = "conversation-id"
+                        },
+                        PayloadInfo = new PayloadInfo
+                        {
+                            PartInfo = new PartInfo
+                            {
+                                Reference = "cid:DefaultSED"
+                            }
                         }
                     }
                 },
