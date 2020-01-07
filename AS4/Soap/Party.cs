@@ -2,7 +2,7 @@
 {
     public class Party
     {
-        public string PartyId { get; set; }
+        public PartyId PartyId { get; set; }
 
         public string Role { get; set; }
     }

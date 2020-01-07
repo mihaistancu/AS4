@@ -51,11 +51,11 @@ namespace AS4.Tests
         </ebms:MessageInfo>
         <ebms:PartyInfo>
           <ebms:From>
-            <ebms:PartyId>party-1</ebms:PartyId>
+            <ebms:PartyId type=""urn:eu:europa:ec:dgempl:eessi:ir"">party-1</ebms:PartyId>
             <ebms:Role>urn:eu:europa:ec:dgempl:eessi:ir:institution</ebms:Role>
           </ebms:From>
           <ebms:To>
-            <ebms:PartyId>party-2</ebms:PartyId>
+            <ebms:PartyId type=""urn:eu:europa:ec:dgempl:eessi:ir"">party-2</ebms:PartyId>
             <ebms:Role>urn:eu:europa:ec:dgempl:eessi:ir:institution</ebms:Role>
           </ebms:To>
         </ebms:PartyInfo>
@@ -118,12 +118,20 @@ namespace AS4.Tests
                         {
                             From = new Party
                             {
-                                PartyId = "party-1",
+                                PartyId = new PartyId
+                                {
+                                    Type = "urn:eu:europa:ec:dgempl:eessi:ir",
+                                    Value = "party-1"
+                                },
                                 Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
                             },
                             To = new Party
                             {
-                                PartyId = "party-2",
+                                PartyId = new PartyId
+                                {
+                                    Type = "urn:eu:europa:ec:dgempl:eessi:ir",
+                                    Value = "party-2"
+                                },
                                 Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
                             }
                         }
