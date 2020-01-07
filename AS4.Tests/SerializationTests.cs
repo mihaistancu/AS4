@@ -98,7 +98,7 @@ namespace AS4.Tests
     <wsa:To s:role=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh"">http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud</wsa:To>
     <wsa:Action>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt</wsa:Action>
     <mh:RoutingInput wsa:IsReferenceParameter=""true"" s:MustUnderstandSerializedValue=""false"" s:role=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh"">
-      <mh:UserMessage mpc=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.receipt"">
+      <mh:UserMessage mpc=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.error"">
         <ebms:MessageInfo>
           <ebms:Timestamp>2020-01-05T00:00:00</ebms:Timestamp>
           <ebms:MessageId>other-message-id</ebms:MessageId>
@@ -268,7 +268,7 @@ namespace AS4.Tests
                     Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
                     UserMessage = new UserMessage
                     {
-                        MessagePartitionChannel = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.receipt",
+                        MessagePartitionChannel = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.error",
                         MessageInfo = new MessageInfo
                         {
                             Timestamp = new DateTime(2020,1,5),
