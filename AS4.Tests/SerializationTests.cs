@@ -43,7 +43,7 @@ namespace AS4.Tests
     </ebms:Messaging>
     <wsa:To s:role=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh"">http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud</wsa:To>
     <wsa:Action>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt</wsa:Action>
-    <mh:RoutingInput />
+    <mh:RoutingInput wsa:IsReferenceParameter=""true"" s:MustUnderstandSerializedValue=""false"" s:role=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh"" />
   </s:Header>
   <s:Body wsu:Id=""body-id"" />
 </Envelope>";
@@ -84,7 +84,12 @@ namespace AS4.Tests
                     Value = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud"
                 },
                 Action="http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt",
-                RoutingInput = new RoutingInput(),
+                RoutingInput = new RoutingInput
+                {
+                    IsReferenceParameter = true,
+                    MustUnderstandSerializedValue = false,
+                    Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh"
+                },
                 Messaging = new Messaging
                 {
                     SignalMessage = new SignalMessage
