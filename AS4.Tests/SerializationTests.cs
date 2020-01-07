@@ -171,37 +171,19 @@ namespace AS4.Tests
   </s:Header>
   <s:Body wsu:Id=""body-id"" />
 </Envelope>";
-
-        public static Envelope PullRequest = new Envelope
-        {
-            Header = new Header
-            {
-                Messaging = new Messaging
-                {
-                    SignalMessage = new SignalMessage
-                    {
-                        MessageInfo = new MessageInfo
-                        {
-                            Timestamp = new DateTime(2020,1,6),
-                            MessageId = "message-id"
-                        },
-                        PullRequest = new PullRequest
-                        {
-                            MessagePartitionChannel = "mpc-id"
-                        }
-                    }
-                }
-            },
-            Body = new Body
-            {
-                Id="body-id"
-            }
-        };
         
         [TestMethod]
         public void PullRequestSerializesCorrectly()
         {
-            var xml = Serialize(PullRequest);
+            var pullRequest = new PullRequestDetails
+            {
+                Timestamp = new DateTime(2020, 1, 6),
+                MessageId = "message-id"
+            };
+
+            var message = MessageFactory.Create(pullRequest);
+
+            var xml = Serialize(message);
 
             Assert.AreEqual(PullRequestXml, xml);
         }

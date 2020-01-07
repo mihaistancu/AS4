@@ -270,5 +270,34 @@ namespace AS4
                 }
             };
         }
+
+        public static Envelope Create(PullRequestDetails pullRequest)
+        {
+            return new Envelope
+            {
+                Header = new Header
+                {
+                    Messaging = new Messaging
+                    {
+                        SignalMessage = new SignalMessage
+                        {
+                            MessageInfo = new MessageInfo
+                            {
+                                Timestamp = pullRequest.Timestamp,
+                                MessageId = pullRequest.MessageId
+                            },
+                            PullRequest = new PullRequest
+                            {
+                                MessagePartitionChannel = "mpc-id"
+                            }
+                        }
+                    }
+                },
+                Body = new Body
+                {
+                    Id="body-id"
+                }
+            };
+        }
     }
 }
