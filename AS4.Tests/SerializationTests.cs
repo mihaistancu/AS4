@@ -65,7 +65,13 @@ namespace AS4.Tests
           <ebms:ConversationId>conversation-id</ebms:ConversationId>
         </ebms:CollaborationInfo>
         <ebms:PayloadInfo>
-          <ebms:PartInfo href=""cid:DefaultSED"" />
+          <ebms:PartInfo href=""cid:DefaultSED"">
+            <ebms:PartProperties>
+              <ebms:Property name=""PartType"">SED</ebms:Property>
+              <ebms:Property name=""MimeType"">application/xml</ebms:Property>
+              <ebms:Property name=""CompressionType"">application/gzip</ebms:Property>
+            </ebms:PartProperties>
+          </ebms:PartInfo>
         </ebms:PayloadInfo>
       </mh:UserMessage>
     </mh:RoutingInput>
@@ -157,7 +163,13 @@ namespace AS4.Tests
                         {
                             PartInfo = new PartInfo
                             {
-                                Reference = "cid:DefaultSED"
+                                Reference = "cid:DefaultSED",
+                                PartProperties = new []
+                                {
+                                    new Property { Name = "PartType",  Value = "SED" },
+                                    new Property { Name = "MimeType",  Value = "application/xml" },
+                                    new Property { Name = "CompressionType",  Value = "application/gzip" }
+                                }
                             }
                         }
                     }

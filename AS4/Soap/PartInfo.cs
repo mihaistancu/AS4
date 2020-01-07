@@ -6,5 +6,7 @@ namespace AS4.Soap
     {
         [XmlAttribute(AttributeName = "href")]
         public string Reference { get; set; }
+
+        public Property[] PartProperties { get; set; }
     }
 }
