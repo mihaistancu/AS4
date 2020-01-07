@@ -12,5 +12,8 @@ namespace AS4.Soap
 
         [XmlAttribute(AttributeName = "role", Namespace = Namespaces.SoapEnvelope)]
         public string Role { get; set; }
+
+        [XmlElement(Namespace = Namespaces.Multihop)]
+        public UserMessage UserMessage { get; set; }
     }
 }

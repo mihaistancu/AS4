@@ -55,6 +55,7 @@
     <Compile Include="Soap\RoutingInput.cs" />
     <Compile Include="Soap\SignalMessage.cs" />
     <Compile Include="Soap\To.cs" />
+    <Compile Include="Soap\UserMessage.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
