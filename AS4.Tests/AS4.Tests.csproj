@@ -63,6 +63,14 @@
       <Name>AS4</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Samples\Error.xml" />
+    <EmbeddedResource Include="Samples\Receipt.xml" />
+    <EmbeddedResource Include="Samples\UserMessage.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Samples\PullRequest.xml" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
