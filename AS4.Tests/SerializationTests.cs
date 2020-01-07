@@ -59,6 +59,11 @@ namespace AS4.Tests
             <ebms:Role>urn:eu:europa:ec:dgempl:eessi:ir:institution</ebms:Role>
           </ebms:To>
         </ebms:PartyInfo>
+        <ebms:CollaborationInfo>
+          <ebms:Service>urn:eu:europa:ec:dgempl:eessi</ebms:Service>
+          <ebms:Action>Send.response</ebms:Action>
+          <ebms:ConversationId>conversation-id</ebms:ConversationId>
+        </ebms:CollaborationInfo>
       </mh:UserMessage>
     </mh:RoutingInput>
   </s:Header>
@@ -134,6 +139,12 @@ namespace AS4.Tests
                                 },
                                 Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
                             }
+                        },
+                        CollaborationInfo = new CollaborationInfo
+                        {
+                            Service = "urn:eu:europa:ec:dgempl:eessi",
+                            Action = "Send.response",
+                            ConversationId = "conversation-id"
                         }
                     }
                 },

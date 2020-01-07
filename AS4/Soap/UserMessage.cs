@@ -12,5 +12,8 @@ namespace AS4.Soap
 
         [XmlElement(Namespace = Namespaces.Ebms)]
         public PartyInfo PartyInfo { get; set; }
+
+        [XmlElement(Namespace = Namespaces.Ebms)]
+        public CollaborationInfo CollaborationInfo { get; set; }
     }
 }
