@@ -12,5 +12,8 @@ namespace AS4.Soap
 
         [XmlElement(Namespace = Namespaces.WebServiceAddressing)]
         public string Action { get; set; }
+
+        [XmlElement(Namespace = Namespaces.Multihop)]
+        public RoutingInput RoutingInput { get; set; }
     }
 }

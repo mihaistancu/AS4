@@ -27,7 +27,7 @@ namespace AS4.Tests
 </Envelope>";
         
         public static string ReceiptXml =
-@"<Envelope xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:ebbp=""http://docs.oasis-open.org/ebxml-bp/ebbp-signals-2.0"" xmlns:s=""http://www.w3.org/2003/05/soap-envelope"" xmlns:ebms=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/"" xmlns:wsa=""http://www.w3.org/2005/08/addressing"">
+@"<Envelope xmlns:ebms=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/"" xmlns:wsa=""http://www.w3.org/2005/08/addressing"" xmlns:ebbp=""http://docs.oasis-open.org/ebxml-bp/ebbp-signals-2.0"" xmlns:s=""http://www.w3.org/2003/05/soap-envelope"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:mh=""http://docs.oasis-open.org/ebxml-msg/ns/ebms/v3.0/multihop/200902/"">
   <s:Header>
     <ebms:Messaging>
       <ebms:SignalMessage>
@@ -43,6 +43,7 @@ namespace AS4.Tests
     </ebms:Messaging>
     <wsa:To s:role=""http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh"">http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud</wsa:To>
     <wsa:Action>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt</wsa:Action>
+    <mh:RoutingInput />
   </s:Header>
   <s:Body wsu:Id=""body-id"" />
 </Envelope>";
@@ -83,6 +84,7 @@ namespace AS4.Tests
                     Value = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud"
                 },
                 Action="http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt",
+                RoutingInput = new RoutingInput(),
                 Messaging = new Messaging
                 {
                     SignalMessage = new SignalMessage
@@ -138,6 +140,7 @@ namespace AS4.Tests
             ns.Add("ebms", Namespaces.Ebms);
             ns.Add("ebbp", Namespaces.Ebbp);
             ns.Add("wsa", Namespaces.WebServiceAddressing);
+            ns.Add("mh", Namespaces.Multihop);
 
             using(var stringWriter = new StringWriter())
             using(var xmlWriter = XmlWriter.Create(stringWriter, settings))

@@ -52,6 +52,7 @@
     <Compile Include="Soap\NonRepudiationInformation.cs" />
     <Compile Include="Soap\PullRequest.cs" />
     <Compile Include="Soap\Receipt.cs" />
+    <Compile Include="Soap\RoutingInput.cs" />
     <Compile Include="Soap\SignalMessage.cs" />
     <Compile Include="Soap\To.cs" />
   </ItemGroup>
