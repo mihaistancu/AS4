@@ -4,7 +4,7 @@ namespace AS4.Soap
 {
     public class Receipt
     {
-        [XmlElement(Namespace = Namespaces.Ebbp)]
+        [XmlElement(Namespace = Namespaces.ElectronicBusinessProcess)]
         public NonRepudiationInformation NonRepudiationInformation { get; set; }
     }
 }

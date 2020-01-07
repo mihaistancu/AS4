@@ -499,8 +499,8 @@ namespace AS4.Tests
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
             ns.Add("s", Namespaces.SoapEnvelope);
             ns.Add("wsu", Namespaces.WebServiceSecurityUtility);
-            ns.Add("ebms", Namespaces.Ebms);
-            ns.Add("ebbp", Namespaces.Ebbp);
+            ns.Add("ebms", Namespaces.ElectronicBusinessMessagingService);
+            ns.Add("ebbp", Namespaces.ElectronicBusinessProcess);
             ns.Add("wsa", Namespaces.WebServiceAddressing);
             ns.Add("mh", Namespaces.Multihop);
 

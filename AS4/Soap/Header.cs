@@ -4,7 +4,7 @@ namespace AS4.Soap
 {
     public class Header
     {
-        [XmlElement(Namespace = Namespaces.Ebms)]
+        [XmlElement(Namespace = Namespaces.ElectronicBusinessMessagingService)]
         public Messaging Messaging { get; set; }
         
         [XmlElement(Namespace = Namespaces.WebServiceAddressing)]
