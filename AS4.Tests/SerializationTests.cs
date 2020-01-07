@@ -213,7 +213,7 @@ namespace AS4.Tests
                     IsReferenceParameter = true,
                     MustUnderstandSerializedValue = false,
                     Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
-                    UserMessage = new UserMessage
+                    UserMessage = new Soap.UserMessage
                     {
                         MessagePartitionChannel = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.receipt",
                         MessageInfo = new MessageInfo
@@ -305,7 +305,7 @@ namespace AS4.Tests
                     IsReferenceParameter = true,
                     MustUnderstandSerializedValue = false,
                     Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
-                    UserMessage = new UserMessage
+                    UserMessage = new Soap.UserMessage
                     {
                         MessagePartitionChannel = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.error",
                         MessageInfo = new MessageInfo
@@ -387,73 +387,7 @@ namespace AS4.Tests
                 Id="body-id"
             }
         };
-
-        public static Envelope UserMessage = new Envelope
-        {
-            Header = new Header
-            {
-                Messaging = new Messaging
-                {
-                    UserMessage = new UserMessage
-                    {
-                        MessageInfo = new MessageInfo
-                        {
-                            Timestamp = new DateTime(2020,1,6),
-                            MessageId = "message-id",
-                        },
-                        PartyInfo = new PartyInfo
-                        {
-                            From = new Party
-                            {
-                                PartyId = new PartyId
-                                {
-                                    Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                    Value = "party-1"
-                                },
-                                Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
-                            },
-                            To = new Party
-                            {
-                                PartyId = new PartyId
-                                {
-                                    Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                    Value = "party-2"
-                                },
-                                Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
-                            }
-                        },
-                        CollaborationInfo = new CollaborationInfo
-                        {
-                            Service = new Service
-                            {
-                                Type = "urn:eu:europa:ec:dgempl:eessi",
-                                Value = "BusinessMessaging"
-                            },
-                            Action = "Send",
-                            ConversationId = "conversation-id"
-                        },
-                        PayloadInfo = new PayloadInfo
-                        {
-                            PartInfo = new PartInfo
-                            {
-                                Reference = "cid:DefaultSED",
-                                PartProperties = new []
-                                {
-                                    new Property { Name = "PartType",  Value = "SED" },
-                                    new Property { Name = "MimeType",  Value = "application/xml" },
-                                    new Property { Name = "CompressionType",  Value = "application/gzip" }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            Body = new Body
-            {
-                Id="body-id"
-            }
-        };
-
+        
         [TestMethod]
         public void PullRequestSerializesCorrectly()
         {
@@ -481,7 +415,20 @@ namespace AS4.Tests
         [TestMethod]
         public void UserMessageSerializesCorrectly()
         {
-            var xml = Serialize(UserMessage);
+            var userMessage = new UserMessage
+            {
+                Timestamp = new DateTime(2020, 1, 6),
+                MessageId = "message-id",
+                SenderId = "party-1",
+                SenderRole = "urn:eu:europa:ec:dgempl:eessi:ir:institution",
+                ReceiverId = "party-2",
+                ReceiverRole = "urn:eu:europa:ec:dgempl:eessi:ir:institution",
+                ConversationId = "conversation-id"
+            };
+
+            var message = MessageFactory.Create(userMessage);
+
+            var xml = Serialize(message);
 
             Assert.AreEqual(UserMessageXml, xml);
         }

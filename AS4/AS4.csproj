@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="As4Message.cs" />
+    <Compile Include="UserMessage.cs" />
+    <Compile Include="MessageFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Soap\Body.cs" />
     <Compile Include="Soap\CollaborationInfo.cs" />
