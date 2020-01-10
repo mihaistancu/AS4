@@ -12,6 +12,7 @@ namespace AS4
                 {
                     Messaging = new Messaging
                     {
+                        Id = "messaging-id",
                         UserMessage = new Soap.UserMessage
                         {
                             MessageInfo = new MessageInfo
@@ -147,6 +148,7 @@ namespace AS4
                     },
                     Messaging = new Messaging
                     {
+                        Id = "messaging-id",
                         SignalMessage = new SignalMessage
                         {
                             MessageInfo = new MessageInfo
@@ -243,6 +245,7 @@ namespace AS4
                     },
                     Messaging = new Messaging
                     {
+                        Id = "messaging-id",
                         SignalMessage = new SignalMessage
                         {
                             MessageInfo = new MessageInfo
@@ -279,6 +282,7 @@ namespace AS4
                 {
                     Messaging = new Messaging
                     {
+                        Id = "messaging-id",
                         SignalMessage = new SignalMessage
                         {
                             MessageInfo = new MessageInfo

@@ -1,6 +1,6 @@
 ﻿<Envelope xmlns:ebms="http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:ebbp="http://docs.oasis-open.org/ebxml-bp/ebbp-signals-2.0" xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:mh="http://docs.oasis-open.org/ebxml-msg/ns/ebms/v3.0/multihop/200902/">
   <s:Header>
-    <ebms:Messaging>
+    <ebms:Messaging wsu:Id="messaging-id">
       <ebms:UserMessage>
         <ebms:MessageInfo>
           <ebms:Timestamp>2020-01-06T00:00:00</ebms:Timestamp>

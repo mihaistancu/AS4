@@ -2,9 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Xml;
-using System.Xml.Serialization;
-using AS4.Soap;
+using AS4.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AS4.Tests
@@ -12,6 +10,8 @@ namespace AS4.Tests
     [TestClass]
     public class SerializationTests
     {
+        private readonly Serializer serializer = new Serializer();
+
         [TestMethod]
         public void PullRequestSerializesCorrectly()
         {
@@ -23,7 +23,7 @@ namespace AS4.Tests
 
             var message = MessageFactory.Create(pullRequest);
 
-            var actual = Serialize(message);
+            var actual = serializer.Serialize(message);
 
             var expected = GetXml("PullRequest.xml");
 
@@ -53,7 +53,7 @@ namespace AS4.Tests
 
             var message = MessageFactory.Create(receipt);
 
-            var actual = Serialize(message);
+            var actual = serializer.Serialize(message);
 
             var expected = GetXml("Receipt.xml");
 
@@ -87,7 +87,7 @@ namespace AS4.Tests
 
             var message = MessageFactory.Create(error);
 
-            var actual = Serialize(message);
+            var actual = serializer.Serialize(message);
 
             var expected = GetXml("Error.xml");
 
@@ -110,7 +110,7 @@ namespace AS4.Tests
 
             var message = MessageFactory.Create(userMessage);
 
-            var actual = Serialize(message);
+            var actual = serializer.Serialize(message);
 
             var expected = GetXml("UserMessage.xml");
 
@@ -128,32 +128,6 @@ namespace AS4.Tests
             using (StreamReader reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd();
-            }
-        }
-
-        private string Serialize(object message)
-        {
-            var settings = new XmlWriterSettings
-            {
-                Indent = true,
-                IndentChars = ("  "),
-                OmitXmlDeclaration = true
-            };
-
-            var serializer = new XmlSerializer(message.GetType());
-            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-            ns.Add("s", Namespaces.SoapEnvelope);
-            ns.Add("wsu", Namespaces.WebServiceSecurityUtility);
-            ns.Add("ebms", Namespaces.ElectronicBusinessMessagingService);
-            ns.Add("ebbp", Namespaces.ElectronicBusinessProcess);
-            ns.Add("wsa", Namespaces.WebServiceAddressing);
-            ns.Add("mh", Namespaces.Multihop);
-
-            using(var stringWriter = new StringWriter())
-            using(var xmlWriter = XmlWriter.Create(stringWriter, settings))
-            {
-                serializer.Serialize(xmlWriter, message, ns);
-                return stringWriter.ToString();
             }
         }
     }
