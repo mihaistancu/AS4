@@ -10,9 +10,9 @@ namespace AS4.Security
     {
         private readonly X509Certificate2 certificate;
 
-        public Certificate(string path, string password)
+        public Certificate(X509Certificate2 x509Certificate)
         {
-            certificate = new X509Certificate2(path, password);    
+            certificate = x509Certificate;    
         }
 
         public XmlElement Sign(Envelope envelope)
