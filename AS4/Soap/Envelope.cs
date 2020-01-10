@@ -2,6 +2,7 @@
 
 namespace AS4.Soap
 {
+    [XmlRoot(Namespace = Namespaces.SoapEnvelope)]
     public class Envelope
     {
         [XmlElement(Namespace = Namespaces.SoapEnvelope)]
