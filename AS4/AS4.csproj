@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +45,12 @@
     <Compile Include="ErrorDetails.cs" />
     <Compile Include="PullRequestDetails.cs" />
     <Compile Include="ReceiptDetails.cs" />
+    <Compile Include="Serialization\Serializer.cs" />
+    <Compile Include="Security\Certificate.cs" />
+    <Compile Include="Security\SecurityTokenReference.cs" />
+    <Compile Include="Security\SignedXmlWithNamespacedId.cs" />
+    <Compile Include="Soap\BinarySecurityToken.cs" />
+    <Compile Include="Soap\Security.cs" />
     <Compile Include="UserMessageDetails.cs" />
     <Compile Include="MessageFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
