@@ -12,9 +12,9 @@ namespace AS4.Security
         public string Id { get; set; }
         public byte[] Token { get; set; }
 
-        public BinarySecurityToken(string id, byte[] token)
+        public BinarySecurityToken(byte[] token)
         {
-            Id = id;
+            Id = Guid.NewGuid().ToString();
             Token = token;
         }
 

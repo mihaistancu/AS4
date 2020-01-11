@@ -8,19 +8,20 @@ namespace AS4.Security
     {
         public static void Sign(this XmlDocument xml, X509Certificate2 certificate, params string[] uris)
         {
-            var binarySecurityToken = new BinarySecurityToken("xyz", certificate.GetRawCertData());
+            var binarySecurityToken = new BinarySecurityToken(certificate.GetRawCertData());
 
             var signature = new Signature(xml, certificate.GetRSAPrivateKey(), uris, binarySecurityToken.Id);
 
-            var security = xml.CreateElement("Security", Namespaces.WebServiceSecurityExtensions);
-            security.SetAttribute("mustUnderstand", Namespaces.WebServiceSecurityUtility, "true");
-            security.AppendChild(xml.ImportNode(binarySecurityToken.GetXml(), true));
-            security.AppendChild(xml.ImportNode(signature.GetXml(), true));
+            var security = new Security(binarySecurityToken, signature);
+            
+            xml.GetHeader().AppendChild(xml.ImportNode(security.GetXml(), true));
+        }
 
+        private static XmlNode GetHeader(this XmlDocument xml)
+        {
             var namespaceManager = new XmlNamespaceManager(xml.NameTable);
             namespaceManager.AddNamespace("s", Namespaces.SoapEnvelope);
-            var header = xml.SelectSingleNode("/s:Envelope/s:Header", namespaceManager);
-            header.AppendChild(security);
+            return xml.SelectSingleNode("/s:Envelope/s:Header", namespaceManager);
         }
     }
 }
