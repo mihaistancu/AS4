@@ -1,6 +1,10 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 using AS4.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,33 +16,29 @@ namespace AS4.Tests
         [TestMethod]
         public void SigningDoesNotThrowException()
         {
-            var userMessage = new UserMessageDetails
-            {
-                Timestamp = new DateTime(2020, 1, 5),
-                MessageId = "user-message-id",
-                SenderId = "party-1",
-                SenderRole = "urn:eu:europa:ec:dgempl:eessi:ir:institution",
-                ReceiverId = "party-2",
-                ReceiverRole = "urn:eu:europa:ec:dgempl:eessi:ir:institution",
-                ConversationId = "conversation-id"
-            };
+            var receipt = GetXml("Receipt.xml");
+            var xml = new XmlDocument();
+            xml.LoadXml(receipt);
 
-            var receipt = new ReceiptDetails
-            {
-                Timestamp = new DateTime(2020, 1, 6),
-                MessageId = "receipt-message-id",
-                UserMessage = userMessage
-            };
-
-            var message = MessageFactory.Create(receipt);
-            
             var rsa = RSA.Create();
             var req = new CertificateRequest("cn=test", rsa, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
-            var x509Certificate = req.CreateSelfSigned(DateTimeOffset.Now, DateTimeOffset.Now.AddYears(5));
+            var certificate = req.CreateSelfSigned(DateTimeOffset.Now, DateTimeOffset.Now.AddYears(5));
             
-            var cert = new Certificate(x509Certificate);
-            var signature = cert.Sign(message);
+            xml.Sign(certificate, "messaging-id", "body-id");
         }
         
+        private string GetXml(string filename)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            string resourceName = assembly.GetManifestResourceNames()
+                .Single(str => str.EndsWith(filename));
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
     }
 }
