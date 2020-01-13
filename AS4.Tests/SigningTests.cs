@@ -25,6 +25,8 @@ namespace AS4.Tests
             var certificate = req.CreateSelfSigned(DateTimeOffset.Now, DateTimeOffset.Now.AddYears(5));
             
             xml.Sign(certificate, "messaging-id", "body-id");
+
+            xml.VerifySignature();
         }
         
         private string GetXml(string filename)

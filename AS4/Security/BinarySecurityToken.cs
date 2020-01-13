@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Xml;
-using AS4.Soap;
 
 namespace AS4.Security
 {
@@ -12,12 +11,16 @@ namespace AS4.Security
         public string Id { get; set; }
         public byte[] Token { get; set; }
 
+        public BinarySecurityToken()
+        {
+        }
+
         public BinarySecurityToken(byte[] token)
         {
             Id = Guid.NewGuid().ToString();
             Token = token;
         }
-
+        
         public XmlElement GetXml()
         {
             var xmlDocument = new XmlDocument();
@@ -27,6 +30,12 @@ namespace AS4.Security
             binarySecurityToken.SetAttribute("id", Namespaces.WebServiceSecurityUtility, Id);
             binarySecurityToken.InnerText = Convert.ToBase64String(Token);
             return binarySecurityToken;
+        }
+
+        public void LoadXml(XmlElement xml)
+        {   
+            Id = xml.GetAttribute("Id", Namespaces.WebServiceSecurityUtility);
+            Token = Convert.FromBase64String(xml.InnerText);
         }
     }
 }

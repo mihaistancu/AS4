@@ -7,22 +7,17 @@ namespace AS4.Security
 {
     public class Signature
     {
-        private readonly XmlDocument xml;
-        private readonly RSA key;
-        private readonly IEnumerable<string> uris;
-        private readonly string certificateUri;
-
-        public Signature(XmlDocument xml, RSA key, IEnumerable<string> uris, string certificateUri)
+        private readonly XmlDocument xmlDocument;
+        private XmlElement signatureXml;
+        
+        public Signature(XmlDocument xml)
         {
-            this.xml = xml;
-            this.key = key;
-            this.uris = uris;
-            this.certificateUri = certificateUri;
+            xmlDocument = xml;
         }
 
-        public XmlElement GetXml()
+        public void ComputeSignature(RSA key, IEnumerable<string> uris, string certificateUri)
         {
-            var signature = new SignedXmlWithNamespacedId(xml)
+            var signedXml = new SignedXmlWithNamespacedId(xmlDocument)
             {
                 SigningKey = key
             };
@@ -35,20 +30,37 @@ namespace AS4.Security
                 };
                 messaging.AddTransform(new XmlDsigExcC14NTransform());
 
-                signature.AddReference(messaging);
+                signedXml.AddReference(messaging);
             }
 
             var keyInfo = new KeyInfo();
             keyInfo.AddClause(new SecurityTokenReference(certificateUri));
 
-            signature.KeyInfo = keyInfo;
+            signedXml.KeyInfo = keyInfo;
 
-            signature.SignedInfo.CanonicalizationMethod = SignedXml.XmlDsigExcC14NTransformUrl;
-            signature.SignedInfo.SignatureMethod = SignedXml.XmlDsigRSASHA256Url;
+            signedXml.SignedInfo.CanonicalizationMethod = SignedXml.XmlDsigExcC14NTransformUrl;
+            signedXml.SignedInfo.SignatureMethod = SignedXml.XmlDsigRSASHA256Url;
             
-            signature.ComputeSignature();
+            signedXml.ComputeSignature();
 
-            return signature.GetXml();
+            signatureXml = signedXml.GetXml();
+        }
+
+        public void VerifySignature(RSA key)
+        {
+            var signedXml = new SignedXmlWithNamespacedId(xmlDocument);
+            signedXml.LoadXml(signatureXml);
+            signedXml.CheckSignature(key);
+        }
+
+        public XmlElement GetXml()
+        {
+            return signatureXml;
+        }
+
+        public void LoadXml(XmlElement xml)
+        {
+            signatureXml = xml;
         }
     }
 }

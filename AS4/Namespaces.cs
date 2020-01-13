@@ -19,5 +19,7 @@
         public const string NextMessageServiceHandler = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh";
 
         public const string Cloud = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud";
+
+        public const string DigitalSignature = "http://www.w3.org/2000/09/xmldsig#";
     }
 }
