@@ -1,10 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Xml;
+﻿using System.Xml;
 using AS4.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,13 +10,33 @@ namespace AS4.Tests
         [TestMethod]
         public void ReceiptIsSignedCorrectly()
         {
-            var xml = new XmlDocument();
-            xml.LoadXml(Resources.Receipt);
+            SignAndCheck(Resources.Receipt);
+        }
 
-            var rsa = RSA.Create();
-            var req = new CertificateRequest("cn=test", rsa, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
-            var certificate = req.CreateSelfSigned(DateTimeOffset.Now, DateTimeOffset.Now.AddYears(5));
-            
+        [TestMethod]
+        public void ErrorIsSignedCorrectly()
+        {
+            SignAndCheck(Resources.Receipt);
+        }
+
+        [TestMethod]
+        public void PullRequestIsSignedCorrectly()
+        {
+            SignAndCheck(Resources.Receipt);
+        }
+
+        [TestMethod]
+        public void UserMessageIsSignedCorrectly()
+        {
+            SignAndCheck(Resources.Receipt);
+        }
+
+        private void SignAndCheck(string content)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(content);
+
+            var certificate = Certificate.CreateSelfSigned();
             xml.Sign(certificate, "messaging-id", "body-id");
 
             xml.VerifySignature();
