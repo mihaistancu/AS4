@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using AS4.Factory;
 using AS4.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

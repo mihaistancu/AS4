@@ -9,11 +9,8 @@ namespace AS4.Security
         public static void Sign(this XmlDocument xml, X509Certificate2 certificate, params string[] uris)
         {
             var binarySecurityToken = new BinarySecurityToken(certificate.GetRawCertData());
-
             var signature = new Signature(xml, certificate.GetRSAPrivateKey(), uris, binarySecurityToken.Id);
-
             var security = new Security(binarySecurityToken, signature);
-            
             xml.GetHeader().AppendChild(xml.ImportNode(security.GetXml(), true));
         }
 

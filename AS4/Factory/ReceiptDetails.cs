@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AS4
+namespace AS4.Factory
 {
     public class ReceiptDetails
     {

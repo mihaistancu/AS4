@@ -42,9 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ErrorDetails.cs" />
-    <Compile Include="PullRequestDetails.cs" />
-    <Compile Include="ReceiptDetails.cs" />
+    <Compile Include="Factory\ErrorDetails.cs" />
+    <Compile Include="Factory\PullRequestDetails.cs" />
+    <Compile Include="Factory\ReceiptDetails.cs" />
     <Compile Include="Security\Security.cs" />
     <Compile Include="Security\Signature.cs" />
     <Compile Include="Serialization\Serializer.cs" />
@@ -52,8 +52,8 @@
     <Compile Include="Security\SecurityTokenReference.cs" />
     <Compile Include="Security\SignedXmlWithNamespacedId.cs" />
     <Compile Include="Security\BinarySecurityToken.cs" />
-    <Compile Include="UserMessageDetails.cs" />
-    <Compile Include="MessageFactory.cs" />
+    <Compile Include="Factory\UserMessageDetails.cs" />
+    <Compile Include="Factory\MessageFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Soap\Body.cs" />
     <Compile Include="Soap\CollaborationInfo.cs" />
@@ -62,7 +62,7 @@
     <Compile Include="Soap\Header.cs" />
     <Compile Include="Soap\MessageInfo.cs" />
     <Compile Include="Soap\Messaging.cs" />
-    <Compile Include="Soap\Namespaces.cs" />
+    <Compile Include="Namespaces.cs" />
     <Compile Include="Soap\NonRepudiationInformation.cs" />
     <Compile Include="Soap\PartInfo.cs" />
     <Compile Include="Soap\Party.cs" />

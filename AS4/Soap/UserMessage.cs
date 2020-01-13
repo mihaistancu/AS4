@@ -4,7 +4,7 @@ namespace AS4.Soap
 {
     public class UserMessage
     {
-        [XmlAttribute(AttributeName = "mpc", Namespace = Namespaces.Multihop)]
+        [XmlAttribute(AttributeName = "mpc", Namespace = Namespaces.MultiHop)]
         public string MessagePartitionChannel { get; set; }
 
         [XmlElement(Namespace = Namespaces.ElectronicBusinessMessagingService)]

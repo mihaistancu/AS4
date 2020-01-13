@@ -1,6 +1,6 @@
 ﻿using AS4.Soap;
 
-namespace AS4
+namespace AS4.Factory
 {
     public class MessageFactory
     {
@@ -13,7 +13,7 @@ namespace AS4
                     Messaging = new Messaging
                     {
                         Id = "messaging-id",
-                        UserMessage = new Soap.UserMessage
+                        UserMessage = new UserMessage
                         {
                             MessageInfo = new MessageInfo
                             {
@@ -82,19 +82,18 @@ namespace AS4
                 {
                     To = new To
                     {
-                        Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
-                        Value = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud"
+                        Role = Namespaces.NextMessageServiceHandler,
+                        Value = Namespaces.Cloud
                     },
                     Action = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.receipt",
                     RoutingInput = new RoutingInput
                     {
                         IsReferenceParameter = true,
                         MustUnderstandSerializedValue = false,
-                        Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
-                        UserMessage = new Soap.UserMessage
+                        Role = Namespaces.NextMessageServiceHandler,
+                        UserMessage = new UserMessage
                         {
-                            MessagePartitionChannel =
-                                "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.receipt",
+                            MessagePartitionChannel = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.receipt",
                             MessageInfo = new MessageInfo
                             {
                                 Timestamp = receipt.UserMessage.Timestamp,
@@ -179,19 +178,18 @@ namespace AS4
                 {
                     To = new To
                     {
-                        Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
-                        Value = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/icloud"
+                        Role = Namespaces.NextMessageServiceHandler,
+                        Value = Namespaces.Cloud
                     },
                     Action = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/oneWay.error",
                     RoutingInput = new RoutingInput
                     {
                         IsReferenceParameter = true,
                         MustUnderstandSerializedValue = false,
-                        Role = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/part2/200811/nextmsh",
-                        UserMessage = new Soap.UserMessage
+                        Role = Namespaces.NextMessageServiceHandler,
+                        UserMessage = new UserMessage
                         {
-                            MessagePartitionChannel =
-                                "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.error",
+                            MessagePartitionChannel = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.error",
                             MessageInfo = new MessageInfo
                             {
                                 Timestamp = error.UserMessage.Timestamp,
