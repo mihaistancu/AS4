@@ -1,7 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using AS4.Factory;
 using AS4.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,7 +23,7 @@ namespace AS4.Tests
 
             var actual = serializer.Serialize(message);
 
-            var expected = GetXml("PullRequest.xml");
+            var expected = Resources.PullRequest;
 
             Assert.AreEqual(expected, actual);
         }
@@ -56,7 +53,7 @@ namespace AS4.Tests
 
             var actual = serializer.Serialize(message);
 
-            var expected = GetXml("Receipt.xml");
+            var expected = Resources.Receipt;
 
             Assert.AreEqual(expected, actual);
         }
@@ -90,7 +87,7 @@ namespace AS4.Tests
 
             var actual = serializer.Serialize(message);
 
-            var expected = GetXml("Error.xml");
+            var expected = Resources.Error;
 
             Assert.AreEqual(expected, actual);
         }
@@ -113,23 +110,9 @@ namespace AS4.Tests
 
             var actual = serializer.Serialize(message);
 
-            var expected = GetXml("UserMessage.xml");
+            var expected = Resources.UserMessage;
 
             Assert.AreEqual(expected, actual);
-        }
-
-        private string GetXml(string filename)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-
-            string resourceName = assembly.GetManifestResourceNames()
-                .Single(str => str.EndsWith(filename));
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
         }
     }
 }

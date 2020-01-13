@@ -14,11 +14,10 @@ namespace AS4.Tests
     public class SigningTests
     {
         [TestMethod]
-        public void SigningDoesNotThrowException()
+        public void ReceiptIsSignedCorrectly()
         {
-            var receipt = GetXml("Receipt.xml");
             var xml = new XmlDocument();
-            xml.LoadXml(receipt);
+            xml.LoadXml(Resources.Receipt);
 
             var rsa = RSA.Create();
             var req = new CertificateRequest("cn=test", rsa, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
@@ -27,20 +26,6 @@ namespace AS4.Tests
             xml.Sign(certificate, "messaging-id", "body-id");
 
             xml.VerifySignature();
-        }
-        
-        private string GetXml(string filename)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-
-            string resourceName = assembly.GetManifestResourceNames()
-                .Single(str => str.EndsWith(filename));
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
         }
     }
 }
