@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
@@ -26,7 +25,7 @@ namespace AS4.Security
 
         public void ComputeSignature(RSA key, IEnumerable<string> uris, string keyUri)
         {
-            var signedXml = new SignedXmlWithNamespacedId(xmlDocument)
+            var signedXml = new SignedXmlWithNamespacedIdAndAttachments(xmlDocument)
             {
                 SigningKey = key
             };
@@ -50,7 +49,7 @@ namespace AS4.Security
                     DigestMethod = SignedXml.XmlDsigSHA256Url
                 };
                 reference.AddTransform(new AttachmentContentSignatureTransform());
-                signedXml.AddReference(reference);
+                signedXml.AddExternalReference(reference);
             }
 
             var keyInfo = new KeyInfo();
@@ -68,7 +67,7 @@ namespace AS4.Security
 
         public void VerifySignature(RSA key)
         {
-            var signedXml = new SignedXmlWithNamespacedId(xmlDocument);
+            var signedXml = new SignedXmlWithNamespacedIdAndAttachments(xmlDocument);
             signedXml.LoadXml(signatureXml);
 
             foreach (var attachment in attachments)
@@ -79,31 +78,10 @@ namespace AS4.Security
                     DigestMethod = SignedXml.XmlDsigSHA256Url
                 };
                 reference.AddTransform(new AttachmentContentSignatureTransform());
-                Replace(signedXml.SignedInfo, reference);
+                signedXml.AddExternalReference(reference);
             }
             
             signedXml.CheckSignature(key);
-        }
-
-        private void Replace(SignedInfo signedInfo, Reference reference)
-        {
-            var existing = GetReferenceByUri(signedInfo, reference.Uri);
-            reference.DigestValue = existing.DigestValue;
-            signedInfo.References.Remove(existing);
-            signedInfo.AddReference(reference);
-        }
-
-        private Reference GetReferenceByUri(SignedInfo signedInfo, string uri)
-        {
-            foreach (Reference reference in signedInfo.References)
-            {
-                if (reference.Uri == uri)
-                {
-                    return reference;
-                }
-            }
-
-            throw new Exception("Reference not found");
         }
 
         public XmlElement GetXml()

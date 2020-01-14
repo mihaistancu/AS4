@@ -53,7 +53,7 @@
     <Compile Include="Serialization\Serializer.cs" />
     <Compile Include="Security\XmlDocumentExtensions.cs" />
     <Compile Include="Security\SecurityTokenReference.cs" />
-    <Compile Include="Security\SignedXmlWithNamespacedId.cs" />
+    <Compile Include="Security\SignedXmlWithNamespacedIdAndAttachments.cs" />
     <Compile Include="Security\BinarySecurityToken.cs" />
     <Compile Include="Factory\UserMessageDetails.cs" />
     <Compile Include="Factory\MessageFactory.cs" />
