@@ -11,12 +11,16 @@ namespace AS4.Security
         {
             var binarySecurityToken = new BinarySecurityToken(certificate.GetRawCertData());
             var signature = new Signature(xml);
-            signature.ComputeSignature(certificate.GetRSAPrivateKey(), uris, binarySecurityToken.Id, attachments);
+            foreach (var attachment in attachments)
+            {
+                signature.AddData(attachment.ContentId, attachment.Stream);
+            }
+            signature.ComputeSignature(certificate.GetRSAPrivateKey(), uris, binarySecurityToken.Id);
             var security = new Security(binarySecurityToken, signature);
             xml.GetHeader().AppendChild(xml.ImportNode(security.GetXml(), true));
         }
 
-        public static void VerifySignature(this XmlDocument xml)
+        public static void VerifySignature(this XmlDocument xml, IEnumerable<Attachment> attachments)
         {   
             var binarySecurityToken = new BinarySecurityToken();
             var binarySecurityTokenXml = xml.GetBinarySecurityToken();
@@ -24,6 +28,10 @@ namespace AS4.Security
             var certificate = new X509Certificate2(binarySecurityToken.Token);
 
             var signature = new Signature(xml);
+            foreach (var attachment in attachments)
+            {
+                signature.AddData(attachment.ContentId, attachment.Stream);
+            }
             var signatureXml = xml.GetSignature();
             signature.LoadXml(signatureXml);
             signature.VerifySignature(certificate.GetRSAPublicKey());

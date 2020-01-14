@@ -1,23 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 using System.Xml;
-using AS4.Mime;
 
 namespace AS4.Security
 {
     public class Signature
     {
         private readonly XmlDocument xmlDocument;
+        private readonly List<ExternalData> attachments;
         private XmlElement signatureXml;
-        
+
         public Signature(XmlDocument xml)
         {
             xmlDocument = xml;
+            attachments = new List<ExternalData>();
         }
 
-        public void ComputeSignature(RSA key, IEnumerable<string> uris, string keyUri, IEnumerable<Attachment> attachments)
+        public void AddData(string uri, Stream stream)
+        {
+            attachments.Add(new ExternalData {Uri = uri, Stream = stream});
+        }
+
+        public void ComputeSignature(RSA key, IEnumerable<string> uris, string keyUri)
         {
             var signedXml = new SignedXmlWithNamespacedId(xmlDocument)
             {
@@ -26,24 +33,24 @@ namespace AS4.Security
             
             foreach (var uri in uris)
             {
-                var messaging = new Reference
+                var reference = new Reference
                 {
                     Uri = "#" + uri,
                     DigestMethod = SignedXml.XmlDsigSHA256Url
                 };
-                messaging.AddTransform(new XmlDsigExcC14NTransform());
-                signedXml.AddReference(messaging);
+                reference.AddTransform(new XmlDsigExcC14NTransform());
+                signedXml.AddReference(reference);
             }
 
             foreach (var attachment in attachments)
             {
-                var messaging = new Reference(attachment.Stream)
+                var reference = new Reference(attachment.Stream)
                 {
-                    Uri = "cid:" + attachment.ContentId,
+                    Uri = "cid:" + attachment.Uri,
                     DigestMethod = SignedXml.XmlDsigSHA256Url
                 };
-                messaging.AddTransform(new AttachmentContentSignatureTransform());
-                signedXml.AddReference(messaging);
+                reference.AddTransform(new AttachmentContentSignatureTransform());
+                signedXml.AddReference(reference);
             }
 
             var keyInfo = new KeyInfo();
@@ -63,7 +70,40 @@ namespace AS4.Security
         {
             var signedXml = new SignedXmlWithNamespacedId(xmlDocument);
             signedXml.LoadXml(signatureXml);
+
+            foreach (var attachment in attachments)
+            {
+                var reference = new Reference(attachment.Stream)
+                {
+                    Uri = "cid:" + attachment.Uri,
+                    DigestMethod = SignedXml.XmlDsigSHA256Url
+                };
+                reference.AddTransform(new AttachmentContentSignatureTransform());
+                Replace(signedXml.SignedInfo, reference);
+            }
+            
             signedXml.CheckSignature(key);
+        }
+
+        private void Replace(SignedInfo signedInfo, Reference reference)
+        {
+            var existing = GetReferenceByUri(signedInfo, reference.Uri);
+            reference.DigestValue = existing.DigestValue;
+            signedInfo.References.Remove(existing);
+            signedInfo.AddReference(reference);
+        }
+
+        private Reference GetReferenceByUri(SignedInfo signedInfo, string uri)
+        {
+            foreach (Reference reference in signedInfo.References)
+            {
+                if (reference.Uri == uri)
+                {
+                    return reference;
+                }
+            }
+
+            throw new Exception("Reference not found");
         }
 
         public XmlElement GetXml()

@@ -12,11 +12,7 @@ namespace AS4.Security
 
             SafeCanonicalizationMethods.Add(Namespaces.AttachmentTransform);
         }
-
-        public SignedXmlWithNamespacedId(XmlElement xmlElement) : base(xmlElement)
-        {       
-        }
-
+        
         public override XmlElement GetIdElement(XmlDocument doc, string id)
         {
             var namespaceManager = new XmlNamespaceManager(doc.NameTable);
