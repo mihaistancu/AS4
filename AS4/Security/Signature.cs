@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using AS4.Mime;
 
 namespace AS4.Security
 {
@@ -15,7 +17,7 @@ namespace AS4.Security
             xmlDocument = xml;
         }
 
-        public void ComputeSignature(RSA key, IEnumerable<string> uris, string certificateUri)
+        public void ComputeSignature(RSA key, IEnumerable<string> uris, string keyUri, IEnumerable<Attachment> attachments)
         {
             var signedXml = new SignedXmlWithNamespacedId(xmlDocument)
             {
@@ -24,17 +26,28 @@ namespace AS4.Security
             
             foreach (var uri in uris)
             {
-                var messaging = new Reference("#" + uri)
+                var messaging = new Reference
                 {
+                    Uri = "#" + uri,
                     DigestMethod = SignedXml.XmlDsigSHA256Url
                 };
                 messaging.AddTransform(new XmlDsigExcC14NTransform());
+                signedXml.AddReference(messaging);
+            }
 
+            foreach (var attachment in attachments)
+            {
+                var messaging = new Reference(attachment.Stream)
+                {
+                    Uri = "cid:" + attachment.ContentId,
+                    DigestMethod = SignedXml.XmlDsigSHA256Url
+                };
+                messaging.AddTransform(new AttachmentContentSignatureTransform());
                 signedXml.AddReference(messaging);
             }
 
             var keyInfo = new KeyInfo();
-            keyInfo.AddClause(new SecurityTokenReference(certificateUri));
+            keyInfo.AddClause(new SecurityTokenReference(keyUri));
 
             signedXml.KeyInfo = keyInfo;
 

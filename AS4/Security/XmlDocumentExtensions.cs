@@ -1,15 +1,17 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using AS4.Mime;
 
 namespace AS4.Security
 {
     public static class XmlDocumentExtensions
     {
-        public static void Sign(this XmlDocument xml, X509Certificate2 certificate, params string[] uris)
+        public static void Sign(this XmlDocument xml, X509Certificate2 certificate, IEnumerable<string> uris, IEnumerable<Attachment> attachments)
         {
             var binarySecurityToken = new BinarySecurityToken(certificate.GetRawCertData());
             var signature = new Signature(xml);
-            signature.ComputeSignature(certificate.GetRSAPrivateKey(), uris, binarySecurityToken.Id);
+            signature.ComputeSignature(certificate.GetRSAPrivateKey(), uris, binarySecurityToken.Id, attachments);
             var security = new Security(binarySecurityToken, signature);
             xml.GetHeader().AppendChild(xml.ImportNode(security.GetXml(), true));
         }

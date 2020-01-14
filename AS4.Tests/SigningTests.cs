@@ -1,4 +1,7 @@
-﻿using System.Xml;
+﻿using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using System.Xml;
+using AS4.Mime;
 using AS4.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -7,39 +10,56 @@ namespace AS4.Tests
     [TestClass]
     public class SigningTests
     {
+        private readonly XmlDocument xml = new XmlDocument();
+        private readonly X509Certificate2 certificate = Certificate.CreateSelfSigned();
+        private readonly string[] uris = {"messaging-id", "body-id"};
+        private readonly Attachment[] noAttachments = { };
+        private readonly Attachment[] oneAttachment =
+        {
+            new Attachment
+            {
+                ContentId = "attachment-1",
+                Stream = new MemoryStream(new byte[] {0, 1, 2, 3})
+            }
+        };
+
         [TestMethod]
         public void ReceiptIsSignedCorrectly()
         {
-            SignAndCheck(Resources.Receipt);
+            xml.LoadXml(Resources.Receipt);
+            xml.Sign(certificate, uris, noAttachments);
+            xml.VerifySignature();
         }
 
         [TestMethod]
         public void ErrorIsSignedCorrectly()
         {
-            SignAndCheck(Resources.Receipt);
+            xml.LoadXml(Resources.Error);
+            xml.Sign(certificate, uris, noAttachments);
+            xml.VerifySignature();
         }
 
         [TestMethod]
         public void PullRequestIsSignedCorrectly()
         {
-            SignAndCheck(Resources.Receipt);
+            xml.LoadXml(Resources.PullRequest);
+            xml.Sign(certificate, uris, noAttachments);
+            xml.VerifySignature();
         }
 
         [TestMethod]
         public void UserMessageIsSignedCorrectly()
         {
-            SignAndCheck(Resources.Receipt);
+            xml.LoadXml(Resources.UserMessage);
+            xml.Sign(certificate, uris, noAttachments);
+            xml.VerifySignature();
         }
 
-        private void SignAndCheck(string content)
+        [TestMethod]
+        public void UserMessageWithAttachmentIsSignedCorrectly()
         {
-            var xml = new XmlDocument();
-            xml.LoadXml(content);
-
-            var certificate = Certificate.CreateSelfSigned();
-            xml.Sign(certificate, "messaging-id", "body-id");
-
-            xml.VerifySignature();
+            xml.LoadXml(Resources.UserMessage);
+            xml.Sign(certificate, uris, oneAttachment);
         }
     }
 }

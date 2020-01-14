@@ -45,6 +45,8 @@
     <Compile Include="Factory\ErrorDetails.cs" />
     <Compile Include="Factory\PullRequestDetails.cs" />
     <Compile Include="Factory\ReceiptDetails.cs" />
+    <Compile Include="Mime\Attachment.cs" />
+    <Compile Include="Security\AttachmentContentSignatureTransform.cs" />
     <Compile Include="Security\Security.cs" />
     <Compile Include="Security\Signature.cs" />
     <Compile Include="Serialization\Serializer.cs" />

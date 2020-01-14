@@ -1,6 +1,6 @@
-﻿using System.Security.Cryptography.Xml;
+﻿using System.Security.Cryptography;
+using System.Security.Cryptography.Xml;
 using System.Xml;
-using AS4.Soap;
 
 namespace AS4.Security
 {
@@ -8,6 +8,9 @@ namespace AS4.Security
     {
         public SignedXmlWithNamespacedId(XmlDocument xml) : base(xml)
         {
+            CryptoConfig.AddAlgorithm(typeof(AttachmentContentSignatureTransform), Namespaces.AttachmentTransform);
+
+            SafeCanonicalizationMethods.Add(Namespaces.AttachmentTransform);
         }
 
         public SignedXmlWithNamespacedId(XmlElement xmlElement) : base(xmlElement)
