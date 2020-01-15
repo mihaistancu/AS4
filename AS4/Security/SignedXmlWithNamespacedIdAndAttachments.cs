@@ -17,12 +17,14 @@ namespace AS4.Security
         public void AddExternalReference(Reference reference)
         {
             var existing = GetReferenceByUri(SignedInfo, reference.Uri);
+
             if (existing != null)
             {
                 reference.DigestValue = existing.DigestValue;
                 SignedInfo.References.Remove(existing);
-                SignedInfo.AddReference(reference);
             }
+
+            SignedInfo.AddReference(reference);
         }
 
         public override XmlElement GetIdElement(XmlDocument doc, string id)
