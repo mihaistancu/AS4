@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using AS4.Mime;
+using AS4.Soap;
 
 namespace AS4.Tests
 {

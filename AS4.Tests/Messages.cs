@@ -1,12 +1,12 @@
-﻿using AS4.Soap;
+﻿using System;
+using AS4.Soap;
 
-namespace AS4.Factory
+namespace AS4.Tests
 {
-    public class MessageFactory
+    public class Messages
     {
-        public static Envelope Create(UserMessageDetails userMessage)
-        {
-            return new Envelope
+        public static Envelope UserMessage =>
+            new Envelope
             {
                 Header = new Header
                 {
@@ -17,8 +17,8 @@ namespace AS4.Factory
                         {
                             MessageInfo = new MessageInfo
                             {
-                                Timestamp = userMessage.Timestamp,
-                                MessageId = userMessage.MessageId
+                                Timestamp = new DateTime(2020, 1, 6),
+                                MessageId = "message-id"
                             },
                             PartyInfo = new PartyInfo
                             {
@@ -27,18 +27,18 @@ namespace AS4.Factory
                                     PartyId = new PartyId
                                     {
                                         Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                        Value = userMessage.SenderId
+                                        Value = "party-1"
                                     },
-                                    Role = userMessage.SenderRole
+                                    Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
                                 },
                                 To = new Party
                                 {
                                     PartyId = new PartyId
                                     {
                                         Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                        Value = userMessage.ReceiverId
+                                        Value = "party-2"
                                     },
-                                    Role = userMessage.ReceiverRole
+                                    Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
                                 }
                             },
                             CollaborationInfo = new CollaborationInfo
@@ -49,7 +49,7 @@ namespace AS4.Factory
                                     Value = "BusinessMessaging"
                                 },
                                 Action = "Send",
-                                ConversationId = userMessage.ConversationId
+                                ConversationId = "conversation-id"
                             },
                             PayloadInfo = new PayloadInfo
                             {
@@ -72,11 +72,9 @@ namespace AS4.Factory
                     Id = "body-id"
                 }
             };
-        }
 
-        public static Envelope Create(ReceiptDetails receipt)
-        {
-            return new Envelope
+        public static Envelope Receipt =>
+            new Envelope
             {
                 Header = new Header
                 {
@@ -93,11 +91,12 @@ namespace AS4.Factory
                         Role = Namespaces.NextMessageServiceHandler,
                         UserMessage = new UserMessage
                         {
-                            MessagePartitionChannel = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.receipt",
+                            MessagePartitionChannel =
+                                "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.receipt",
                             MessageInfo = new MessageInfo
                             {
-                                Timestamp = receipt.UserMessage.Timestamp,
-                                MessageId = receipt.UserMessage.MessageId
+                                Timestamp = new DateTime(2020, 1, 5),
+                                MessageId = "user-message-id"
                             },
                             PartyInfo = new PartyInfo
                             {
@@ -106,18 +105,18 @@ namespace AS4.Factory
                                     PartyId = new PartyId
                                     {
                                         Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                        Value = receipt.UserMessage.SenderId
+                                        Value = "party-1"
                                     },
-                                    Role = receipt.UserMessage.SenderRole
+                                    Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
                                 },
                                 To = new Party
                                 {
                                     PartyId = new PartyId
                                     {
                                         Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                        Value = receipt.UserMessage.ReceiverId
+                                        Value = "party-2"
                                     },
-                                    Role = receipt.UserMessage.ReceiverRole
+                                    Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
                                 }
                             },
                             CollaborationInfo = new CollaborationInfo
@@ -128,7 +127,7 @@ namespace AS4.Factory
                                     Value = "BusinessMessaging"
                                 },
                                 Action = "Send.response",
-                                ConversationId = receipt.UserMessage.ConversationId
+                                ConversationId = "conversation-id"
                             },
                             PayloadInfo = new PayloadInfo
                             {
@@ -152,9 +151,9 @@ namespace AS4.Factory
                         {
                             MessageInfo = new MessageInfo
                             {
-                                Timestamp = receipt.Timestamp,
-                                MessageId = receipt.MessageId,
-                                RefToMessageId = receipt.UserMessage.MessageId
+                                Timestamp = new DateTime(2020, 01, 06),
+                                MessageId = "receipt-message-id",
+                                RefToMessageId = "user-message-id"
                             },
                             Receipt = new Receipt
                             {
@@ -168,11 +167,9 @@ namespace AS4.Factory
                     Id = "body-id"
                 }
             };
-        }
 
-        public static Envelope Create(ErrorDetails error)
-        {
-            return new Envelope
+        public static Envelope Error =>
+            new Envelope
             {
                 Header = new Header
                 {
@@ -189,11 +186,12 @@ namespace AS4.Factory
                         Role = Namespaces.NextMessageServiceHandler,
                         UserMessage = new UserMessage
                         {
-                            MessagePartitionChannel = "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.error",
+                            MessagePartitionChannel =
+                                "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC.error",
                             MessageInfo = new MessageInfo
                             {
-                                Timestamp = error.UserMessage.Timestamp,
-                                MessageId = error.UserMessage.MessageId
+                                Timestamp = new DateTime(2020, 1, 5),
+                                MessageId = "user-message-id"
                             },
                             PartyInfo = new PartyInfo
                             {
@@ -202,18 +200,18 @@ namespace AS4.Factory
                                     PartyId = new PartyId
                                     {
                                         Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                        Value = error.UserMessage.SenderId
+                                        Value = "party-1"
                                     },
-                                    Role = error.UserMessage.SenderRole
+                                    Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
                                 },
                                 To = new Party
                                 {
                                     PartyId = new PartyId
                                     {
                                         Type = "urn:eu:europa:ec:dgempl:eessi:ir",
-                                        Value = error.UserMessage.ReceiverId
+                                        Value = "party-2"
                                     },
-                                    Role = error.UserMessage.ReceiverRole
+                                    Role = "urn:eu:europa:ec:dgempl:eessi:ir:institution"
                                 }
                             },
                             CollaborationInfo = new CollaborationInfo
@@ -224,7 +222,7 @@ namespace AS4.Factory
                                     Value = "BusinessMessaging"
                                 },
                                 Action = "Send.response",
-                                ConversationId = error.UserMessage.ConversationId
+                                ConversationId = "conversation-id"
                             },
                             PayloadInfo = new PayloadInfo
                             {
@@ -248,19 +246,19 @@ namespace AS4.Factory
                         {
                             MessageInfo = new MessageInfo
                             {
-                                Timestamp = error.Timestamp,
-                                MessageId = error.MessageId,
-                                RefToMessageId = error.UserMessage.MessageId
+                                Timestamp = new DateTime(2020, 1, 6),
+                                MessageId = "error-message-id",
+                                RefToMessageId = "user-message-id"
                             },
                             Error = new Error
                             {
                                 Category = "Content",
-                                ErrorCode = error.ErrorCode,
+                                ErrorCode = "EBMS:0004",
                                 Origin = "ebMS",
                                 Severity = "failure",
-                                ShortDescription = error.ShortDescription,
-                                Description = error.Description,
-                                ErrorDetail = error.Details
+                                ShortDescription = "Other",
+                                Description = "error description",
+                                ErrorDetail = "error detail"
                             }
                         }
                     }
@@ -270,11 +268,9 @@ namespace AS4.Factory
                     Id = "body-id"
                 }
             };
-        }
 
-        public static Envelope Create(PullRequestDetails pullRequest)
-        {
-            return new Envelope
+        public static Envelope PullRequest =>
+            new Envelope
             {
                 Header = new Header
                 {
@@ -285,8 +281,8 @@ namespace AS4.Factory
                         {
                             MessageInfo = new MessageInfo
                             {
-                                Timestamp = pullRequest.Timestamp,
-                                MessageId = pullRequest.MessageId
+                                Timestamp = new DateTime(2020, 1, 6),
+                                MessageId = "message-id"
                             },
                             PullRequest = new PullRequest
                             {
@@ -297,9 +293,8 @@ namespace AS4.Factory
                 },
                 Body = new Body
                 {
-                    Id="body-id"
+                    Id = "body-id"
                 }
             };
-        }
     }
 }

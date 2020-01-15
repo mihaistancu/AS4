@@ -1,12 +1,20 @@
 ﻿using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using AS4.Soap;
 
 namespace AS4.Serialization
 {
-    public class Serializer
+    public class EnvelopeToXml
     {
-        public string Serialize(object message)
+        public static XmlDocument Serialize(Envelope message)
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(ToString(message));
+            return xml;
+        }
+
+        public static string ToString(Envelope message)
         {
             var settings = GetSettings();
             var namespaces = GetNamespaceManager();
@@ -20,7 +28,7 @@ namespace AS4.Serialization
             }
         }
 
-        private XmlWriterSettings GetSettings()
+        private static XmlWriterSettings GetSettings()
         {
             return new XmlWriterSettings
             {
@@ -30,7 +38,7 @@ namespace AS4.Serialization
             };
         }
 
-        private XmlSerializerNamespaces GetNamespaceManager()
+        private static XmlSerializerNamespaces GetNamespaceManager()
         {
             var ns = new XmlSerializerNamespaces();
             ns.Add("s", Namespaces.SoapEnvelope);

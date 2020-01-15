@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MimeKitLite, Version=2.4.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\AS4\packages\MimeKitLite.2.4.1\lib\net47\MimeKitLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
@@ -57,10 +61,11 @@
   <ItemGroup>
     <Compile Include="Attachments.cs" />
     <Compile Include="Certificate.cs" />
+    <Compile Include="Messages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="SigningTests.cs" />
-    <Compile Include="SerializationTests.cs" />
+    <Compile Include="EnvelopeToXmlSerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AS4\AS4.csproj">
@@ -76,6 +81,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Samples\PullRequest.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

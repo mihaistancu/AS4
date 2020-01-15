@@ -3,24 +3,25 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using AS4.Soap;
 
 namespace AS4.Security
 {
     public class Signature
     {
         private readonly XmlDocument xmlDocument;
-        private readonly List<ExternalData> attachments;
+        private readonly List<Attachment> attachments;
         private XmlElement signatureXml;
 
         public Signature(XmlDocument xml)
         {
             xmlDocument = xml;
-            attachments = new List<ExternalData>();
+            attachments = new List<Attachment>();
         }
 
         public void AddData(string uri, Stream stream)
         {
-            attachments.Add(new ExternalData {Uri = uri, Stream = stream});
+            attachments.Add(new Attachment {ContentId = uri, Stream = stream});
         }
 
         public void ComputeSignature(RSA key, IEnumerable<string> uris, string keyUri)
@@ -43,9 +44,9 @@ namespace AS4.Security
 
             foreach (var attachment in attachments)
             {
-                var reference = new Reference(attachment.Stream)
+                var reference = new Reference(new NonCloseableStream(attachment.Stream))
                 {
-                    Uri = "cid:" + attachment.Uri,
+                    Uri = "cid:" + attachment.ContentId,
                     DigestMethod = SignedXml.XmlDsigSHA256Url
                 };
                 reference.AddTransform(new AttachmentContentSignatureTransform());
@@ -74,7 +75,7 @@ namespace AS4.Security
             {
                 var reference = new Reference(attachment.Stream)
                 {
-                    Uri = "cid:" + attachment.Uri,
+                    Uri = "cid:" + attachment.ContentId,
                     DigestMethod = SignedXml.XmlDsigSHA256Url
                 };
                 reference.AddTransform(new AttachmentContentSignatureTransform());

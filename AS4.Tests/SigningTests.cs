@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using AS4.Mime;
 using AS4.Security;
+using AS4.Soap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AS4.Tests

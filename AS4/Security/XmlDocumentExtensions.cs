@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using AS4.Mime;
+using AS4.Soap;
 
 namespace AS4.Security
 {
