@@ -13,6 +13,7 @@ namespace AS4.Tests
                 yield return new Attachment
                 {
                     ContentId = "attachment-" + i,
+                    ContentType = "application/gzip",
                     Stream = new MemoryStream(new byte[] {0, 1, 2, 3})
                 };
             } 

@@ -48,9 +48,9 @@
   <ItemGroup>
     <Compile Include="As4Message.cs" />
     <Compile Include="Security\NonCloseableStream.cs" />
-    <Compile Include="Serialization\Parser.cs" />
+    <Compile Include="Serialization\MimeEntityToAs4Message.cs" />
     <Compile Include="Serialization\EnvelopeToXml.cs" />
-    <Compile Include="Serialization\As4MessageToStream.cs" />
+    <Compile Include="Serialization\As4MessageToMimeEntity.cs" />
     <Compile Include="Soap\Attachment.cs" />
     <Compile Include="Security\AttachmentContentSignatureTransform.cs" />
     <Compile Include="Security\Security.cs" />

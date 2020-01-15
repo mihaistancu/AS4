@@ -3,30 +3,27 @@ using MimeKit;
 
 namespace AS4.Serialization
 {
-    public class As4MessageToStream
+    public class As4MessageToMimeEntity
     {
-        public static void Serialize(As4Message message, Stream stream)
+        public static MimeEntity Serialize(As4Message message)
         {
-            if (message.Attachments.Count == 0)
-            {
-                message.SoapEnvelope.Save(stream);
-                return;
-            }
-
-            var multipart = new Multipart("related");
-
-            var root = new MemoryStream();
-            message.SoapEnvelope.Save(root);
+            var stream = new MemoryStream();
+            message.SoapEnvelope.Save(stream);
 
             var mimeRoot = new MimePart("application", "soap+xml")
-            {   
-                Content = new MimeContent(root)
+            {
+                Content = new MimeContent(stream)
             };
-            multipart.Add(mimeRoot);
 
+            if (message.Attachments.Count == 0)
+            {
+                return mimeRoot;
+            }
+
+            var multipart = new Multipart("related") {mimeRoot};
+            
             foreach (var messageAttachment in message.Attachments)
             {
-                messageAttachment.Stream.Position = 0;
                 var mimeAttachment = new MimePart(messageAttachment.ContentType)
                 {
                     ContentId = messageAttachment.ContentId,
@@ -36,8 +33,8 @@ namespace AS4.Serialization
                 };
                 multipart.Add(mimeAttachment);
             }
-            
-            multipart.WriteTo(stream, contentOnly: true);
+
+            return multipart;
         }
     }
 }

@@ -59,8 +59,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="As4MessageToMimeSerializationTests.cs" />
     <Compile Include="Attachments.cs" />
     <Compile Include="Certificate.cs" />
+    <Compile Include="Envelopes.cs" />
+    <Compile Include="MessageAssert.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />

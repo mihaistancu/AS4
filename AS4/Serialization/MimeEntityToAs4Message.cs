@@ -1,26 +1,14 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml;
-using System.Xml.Serialization;
 using AS4.Soap;
 using MimeKit;
 
 namespace AS4.Serialization
 {
-    public class Parser
+    public class MimeEntityToAs4Message
     {
-        public static Envelope ParseEnvelope(Stream stream)
-        {
-            var xmlSerializer = new XmlSerializer(typeof(Envelope));
-            return (Envelope)xmlSerializer.Deserialize(stream);
-        }
-
-        public static As4Message ParseAs4Message(string contentType, Stream stream)
-        {
-            var mimeContentType = ContentType.Parse(contentType);
-            
-            var mimeEntity = MimeEntity.Load(mimeContentType, stream);
-            
+        public static As4Message Deserialize(MimeEntity mimeEntity)
+        {   
             var mimePart = mimeEntity as MimePart;
             if (mimePart != null)
             {
