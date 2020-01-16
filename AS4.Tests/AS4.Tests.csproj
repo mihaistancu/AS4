@@ -71,7 +71,6 @@
     <Compile Include="Asserts\MessageAssert.cs" />
     <Compile Include="Factories\Messages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Factories\Resources.cs" />
     <Compile Include="XmlSigningTests.cs" />
     <Compile Include="XmlSerializationTests.cs" />
   </ItemGroup>

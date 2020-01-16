@@ -68,7 +68,7 @@
     <Compile Include="Soap\Header.cs" />
     <Compile Include="Soap\MessageInfo.cs" />
     <Compile Include="Soap\Messaging.cs" />
-    <Compile Include="Namespaces.cs" />
+    <Compile Include="Soap\Namespaces.cs" />
     <Compile Include="Soap\NonRepudiationInformation.cs" />
     <Compile Include="Soap\PartInfo.cs" />
     <Compile Include="Soap\Party.cs" />

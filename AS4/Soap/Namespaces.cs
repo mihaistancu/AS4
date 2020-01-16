@@ -1,4 +1,4 @@
-﻿namespace AS4
+﻿namespace AS4.Soap
 {
     public static class Namespaces
     {

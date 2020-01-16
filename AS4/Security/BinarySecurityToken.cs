@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using AS4.Soap;
 
 namespace AS4.Security
 {
