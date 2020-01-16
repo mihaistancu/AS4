@@ -3,6 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using AS4.Security.Cryptography;
 using AS4.Soap;
 
 namespace AS4.Security

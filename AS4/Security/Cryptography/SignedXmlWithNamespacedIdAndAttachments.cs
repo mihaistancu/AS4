@@ -4,7 +4,7 @@ using System.Security.Cryptography.Xml;
 using System.Xml;
 using AS4.Soap;
 
-namespace AS4.Security
+namespace AS4.Security.Cryptography
 {
     public class SignedXmlWithNamespacedIdAndAttachments : SignedXml
     {

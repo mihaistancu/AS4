@@ -47,18 +47,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="As4Message.cs" />
-    <Compile Include="Security\NonCloseableStream.cs" />
+    <Compile Include="Security\Cryptography\NonCloseableStream.cs" />
     <Compile Include="Serialization\MimeEntityToAs4Message.cs" />
     <Compile Include="Serialization\EnvelopeToXml.cs" />
     <Compile Include="Serialization\As4MessageToMimeEntity.cs" />
     <Compile Include="Serialization\XmlToEnvelope.cs" />
     <Compile Include="Soap\Attachment.cs" />
-    <Compile Include="Security\AttachmentContentSignatureTransform.cs" />
+    <Compile Include="Security\Cryptography\AttachmentContentSignatureTransform.cs" />
     <Compile Include="Security\Security.cs" />
     <Compile Include="Security\Signature.cs" />
     <Compile Include="Security\XmlDocumentExtensions.cs" />
-    <Compile Include="Security\SecurityTokenReference.cs" />
-    <Compile Include="Security\SignedXmlWithNamespacedIdAndAttachments.cs" />
+    <Compile Include="Security\Cryptography\SecurityTokenReference.cs" />
+    <Compile Include="Security\Cryptography\SignedXmlWithNamespacedIdAndAttachments.cs" />
     <Compile Include="Security\BinarySecurityToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Soap\Body.cs" />

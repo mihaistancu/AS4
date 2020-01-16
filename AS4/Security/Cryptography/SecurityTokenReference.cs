@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography.Xml;
 using System.Xml;
 
-namespace AS4.Security
+namespace AS4.Security.Cryptography
 {
     public class SecurityTokenReference : KeyInfoClause
     {
