@@ -2,13 +2,15 @@
 using System.Linq;
 using AS4.Serialization;
 using AS4.Soap;
+using AS4.Tests.Asserts;
+using AS4.Tests.Factories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MimeKit;
 
 namespace AS4.Tests
 {
     [TestClass]
-    public class As4MessageToMimeSerializationTests
+    public class MimeSerializationTests
     {
         [TestMethod]
         public void PullRequestSerializesSuccessfully()

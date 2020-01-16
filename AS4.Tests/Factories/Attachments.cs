@@ -2,7 +2,7 @@
 using System.IO;
 using AS4.Soap;
 
-namespace AS4.Tests
+namespace AS4.Tests.Factories
 {
     public class Attachments
     {

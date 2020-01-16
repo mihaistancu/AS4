@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
-namespace AS4.Tests
+namespace AS4.Tests.Factories
 {
     public class Certificate
     {

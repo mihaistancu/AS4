@@ -1,7 +1,7 @@
 ﻿using AS4.Soap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace AS4.Tests
+namespace AS4.Tests.Asserts
 {
     public class MessageAssert
     {
@@ -11,11 +11,11 @@ namespace AS4.Tests
             Assert.AreEqual(expected.Attachments.Count, actual.Attachments.Count);
             for (int i = 0; i < expected.Attachments.Count; i++)
             {
-                AssertEqual(expected.Attachments[i], actual.Attachments[i]);
+                AreEqual(expected.Attachments[i], actual.Attachments[i]);
             }
         }
 
-        private static void AssertEqual(Attachment expected, Attachment actual)
+        private static void AreEqual(Attachment expected, Attachment actual)
         {
             Assert.AreEqual(expected.ContentId, actual.ContentId);
             Assert.AreEqual(expected.ContentType, actual.ContentType);
