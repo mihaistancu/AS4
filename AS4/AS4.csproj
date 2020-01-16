@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="As4Client.cs" />
     <Compile Include="As4Message.cs" />
     <Compile Include="Security\Cryptography\NonCloseableStream.cs" />
     <Compile Include="Serialization\MimeEntityToAs4Message.cs" />
