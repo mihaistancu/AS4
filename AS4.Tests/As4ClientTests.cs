@@ -41,7 +41,7 @@ namespace AS4.Tests
                 return expectedResponse;
             };
 
-            using (Server.Start(Url, handler))
+            using (Servers.Create(Url, handler))
             {
                 var client = new As4Client();
                 var actualResponse = client.Send(new Uri(Url), expectedRequest);
@@ -56,7 +56,7 @@ namespace AS4.Tests
                 MessageAssert.AreEqual(expectedRequest, actualMessage);
             };
 
-            using (Server.Start(Url, handler))
+            using (Servers.Create(Url, handler))
             {
                 var client = new As4Client();
                 var result = client.Send(new Uri(Url), expectedRequest);

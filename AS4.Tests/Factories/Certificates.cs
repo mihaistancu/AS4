@@ -4,7 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace AS4.Tests.Factories
 {
-    public class Certificate
+    public class Certificates
     {
         public static X509Certificate2 CreateSelfSigned()
         {

@@ -8,9 +8,9 @@ using Owin;
 
 namespace AS4.Tests.Factories
 {
-    public class Server
+    public class Servers
     {
-        public static IDisposable Start(string url, Func<As4Message, As4Message> handler)
+        public static IDisposable Create(string url, Func<As4Message, As4Message> handler)
         {
             return WebApp.Start(url, app => app.Run(context =>
             {
@@ -20,7 +20,7 @@ namespace AS4.Tests.Factories
             }));
         }
 
-        public static IDisposable Start(string url, Action<As4Message> handler)
+        public static IDisposable Create(string url, Action<As4Message> handler)
         {
             return WebApp.Start(url, app => app.Run(context =>
             {

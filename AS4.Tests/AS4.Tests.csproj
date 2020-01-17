@@ -84,11 +84,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="As4ClientTests.cs" />
-    <Compile Include="Factories\Server.cs" />
+    <Compile Include="Factories\Servers.cs" />
     <Compile Include="Asserts\EnvelopeAssert.cs" />
     <Compile Include="MimeSerializationTests.cs" />
     <Compile Include="Factories\Attachments.cs" />
-    <Compile Include="Factories\Certificate.cs" />
+    <Compile Include="Factories\Certificates.cs" />
     <Compile Include="Factories\Envelopes.cs" />
     <Compile Include="Asserts\MessageAssert.cs" />
     <Compile Include="Factories\Messages.cs" />

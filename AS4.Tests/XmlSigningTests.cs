@@ -43,7 +43,7 @@ namespace AS4.Tests
         private void CheckSigning(Envelope envelope, params Attachment[] attachments)
         {
             var xml = EnvelopeToXml.Serialize(envelope);
-            var certificate = Certificate.CreateSelfSigned();
+            var certificate = Certificates.CreateSelfSigned();
             var uris = new []{envelope.Header.Messaging.Id, envelope.Body.Id};
             xml.Sign(certificate, uris, attachments);
             xml.VerifySignature(attachments);
