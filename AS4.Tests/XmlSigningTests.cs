@@ -37,7 +37,7 @@ namespace AS4.Tests
         [TestMethod]
         public void UserMessageWithAttachmentIsSignedCorrectly()
         {
-            CheckSigning(Envelopes.UserMessage, Attachments.Generate(2).ToArray());
+            CheckSigning(Envelopes.UserMessage, Attachments.Generate());
         }
 
         private void CheckSigning(Envelope envelope, params Attachment[] attachments)

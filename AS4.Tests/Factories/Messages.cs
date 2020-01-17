@@ -6,7 +6,7 @@ namespace AS4.Tests.Factories
 {
     public class Messages
     {
-        public static As4Message Create(Envelope envelope, IEnumerable<Attachment> attachments)
+        public static As4Message Create(Envelope envelope, params Attachment[] attachments)
         {
             var message = new As4Message();
             

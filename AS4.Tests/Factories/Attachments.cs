@@ -1,22 +1,18 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using AS4.Soap;
 
 namespace AS4.Tests.Factories
 {
     public class Attachments
     {
-        public static IEnumerable<Attachment> Generate(int n)
+        public static Attachment Generate()
         {
-            for (int i = 0; i < n; i++)
+            return new Attachment
             {
-                yield return new Attachment
-                {
-                    ContentId = "attachment-" + i,
-                    ContentType = "application/gzip",
-                    Stream = new MemoryStream(new byte[] {0, 1, 2, 3})
-                };
-            } 
+                ContentId = "attachment-id",
+                ContentType = "application/gzip",
+                Stream = new MemoryStream(new byte[] {0, 1, 2, 3})
+            };
         }
     }
 }

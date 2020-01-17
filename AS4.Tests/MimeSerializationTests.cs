@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using AS4.Serialization;
 using AS4.Soap;
 using AS4.Tests.Asserts;
@@ -39,7 +38,7 @@ namespace AS4.Tests
         [TestMethod]
         public void UserMessageWithAttachmentsSerializesSuccessfully()
         {
-            CheckSerialization(Envelopes.UserMessage, Attachments.Generate(2).ToArray());
+            CheckSerialization(Envelopes.UserMessage, Attachments.Generate());
         }
 
         private void CheckSerialization(Envelope envelope, params Attachment[] attachments)
