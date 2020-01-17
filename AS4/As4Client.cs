@@ -22,6 +22,11 @@ namespace AS4
             }
     
             var response = (HttpWebResponse)request.GetResponse();
+            if (string.IsNullOrEmpty(response.ContentType))
+            {
+                return null;
+            }
+
             var contentType = ContentType.Parse(response.ContentType);
 
             using (Stream responseStream = response.GetResponseStream())

@@ -1,39 +1,67 @@
-﻿using AS4.Serialization;
-using AS4.Tests.Factories;
-using Microsoft.Owin;
-using Microsoft.Owin.Hosting;
+﻿using AS4.Tests.Factories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Owin;
 using System;
-using System.Threading.Tasks;
+using AS4.Tests.Asserts;
 
 namespace AS4.Tests
 {
     [TestClass]
     public class As4ClientTests
     {
+        private const string Url = "http://localhost:8080";
+
         [TestMethod]
-        public void Bar()
+        public void SendUserMessageGetBackReceipt()
         {
-            string baseUrl = "http://localhost:12346/";
-            using (WebApp.Start(baseUrl, app => app.Run(Foo)))
+            var request = Messages.Create(Envelopes.UserMessage, Attachments.Generate());
+            var response = Messages.Create(Envelopes.Receipt);
+            CheckSendAndReceive(request, response);
+        }
+
+        [TestMethod]
+        public void SendPullRequestGetBackUserMessage()
+        {
+            var request = Messages.Create(Envelopes.PullRequest);
+            var response = Messages.Create(Envelopes.UserMessage, Attachments.Generate());
+            CheckSendAndReceive(request, response);
+        }
+
+        [TestMethod]
+        public void SendErrorGetBackNothing()
+        {
+            var request = Messages.Create(Envelopes.PullRequest);
+            CheckSendAndReceive(request);
+        }
+
+        private void CheckSendAndReceive(As4Message expectedRequest, As4Message expectedResponse)
+        {
+            Func<As4Message, As4Message> handler = actualRequest =>
+            {
+                MessageAssert.AreEqual(expectedRequest, actualRequest);
+                return expectedResponse;
+            };
+
+            using (Server.Start(Url, handler))
             {
                 var client = new As4Client();
-            
-                var message = new As4Message();
-                message.Set(Envelopes.UserMessage);
-            
-                var result = client.Send(new Uri(baseUrl), message);
+                var actualResponse = client.Send(new Uri(Url), expectedRequest);
+                MessageAssert.AreEqual(expectedResponse, actualResponse);
             }
         }
 
-        private Task Foo(IOwinContext context)
+        private void CheckSendAndReceive(As4Message expectedRequest)
         {
-            var message = new As4Message();
-            message.Set(Envelopes.Receipt);
-            var mimeMessage = As4MessageToMimeEntity.Serialize(message);
-            context.Response.ContentType = mimeMessage.ContentType.MimeType + mimeMessage.ContentType.Parameters;
-            return mimeMessage.WriteToAsync(context.Response.Body, true);
+            Action<As4Message> handler = actualMessage =>
+            {
+                MessageAssert.AreEqual(expectedRequest, actualMessage);
+            };
+
+            using (Server.Start(Url, handler))
+            {
+                var client = new As4Client();
+                var result = client.Send(new Uri(Url), expectedRequest);
+                Assert.IsNull(result);
+            }
         }
     }
 }

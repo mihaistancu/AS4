@@ -84,6 +84,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="As4ClientTests.cs" />
+    <Compile Include="Factories\Server.cs" />
     <Compile Include="Asserts\EnvelopeAssert.cs" />
     <Compile Include="MimeSerializationTests.cs" />
     <Compile Include="Factories\Attachments.cs" />
