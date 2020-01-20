@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 using System.Xml;
@@ -6,9 +7,9 @@ using AS4.Soap;
 
 namespace AS4.Security.Cryptography
 {
-    public class SignedXmlWithNamespacedIdAndAttachments : SignedXml
+    public class ExtendedSignedXml : SignedXml
     {
-        public SignedXmlWithNamespacedIdAndAttachments(XmlDocument xml) : base(xml)
+        public ExtendedSignedXml(XmlDocument xml) : base(xml)
         {
             CryptoConfig.AddAlgorithm(typeof(AttachmentContentSignatureTransform), Namespaces.AttachmentTransform);
 
@@ -28,17 +29,32 @@ namespace AS4.Security.Cryptography
             SignedInfo.AddReference(reference);
         }
 
+        private Reference GetReferenceByUri(SignedInfo signedInfo, string uri)
+        {
+            return signedInfo.References.Cast<Reference>().FirstOrDefault(reference => reference.Uri == uri);
+        }
+
         public override XmlElement GetIdElement(XmlDocument doc, string id)
+        {
+            return GetReferencesById(doc, id)
+                .Concat(GetDataObjectsById(id))
+                .Single() as XmlElement;
+        }
+
+        private IEnumerable<XmlNode> GetReferencesById(XmlDocument doc, string id)
         {
             var namespaceManager = new XmlNamespaceManager(doc.NameTable);
             namespaceManager.AddNamespace("wsu", Namespaces.WebServiceSecurityUtility);
             var xpath = $@"//*[@wsu:Id=""{id}""]";
-            return  doc.SelectSingleNode(xpath, namespaceManager) as XmlElement;
+            return doc.SelectNodes(xpath, namespaceManager).Cast<XmlNode>();
         }
 
-        private Reference GetReferenceByUri(SignedInfo signedInfo, string uri)
+        private IEnumerable<XmlNode> GetDataObjectsById(string id)
         {
-            return signedInfo.References.Cast<Reference>().FirstOrDefault(reference => reference.Uri == uri);
+            var xpath = $@"//*[@Id=""{id}""]";
+            return Signature.ObjectList.Cast<DataObject>()
+                .SelectMany(d => d.Data.Cast<XmlNode>())
+                .Where(node => node.SelectNodes(xpath).Count == 1);
         }
     }
 }

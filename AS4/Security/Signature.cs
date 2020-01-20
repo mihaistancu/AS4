@@ -27,7 +27,7 @@ namespace AS4.Security
 
         public void ComputeSignature(RSA key, IEnumerable<string> uris, string keyUri)
         {
-            var signedXml = new SignedXmlWithNamespacedIdAndAttachments(xmlDocument)
+            var signedXml = new ExtendedSignedXml(xmlDocument)
             {
                 SigningKey = key
             };
@@ -69,7 +69,7 @@ namespace AS4.Security
 
         public void VerifySignature(RSA key)
         {
-            var signedXml = new SignedXmlWithNamespacedIdAndAttachments(xmlDocument);
+            var signedXml = new ExtendedSignedXml(xmlDocument);
             signedXml.LoadXml(signatureXml);
 
             foreach (var attachment in attachments)
