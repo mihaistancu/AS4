@@ -8,12 +8,10 @@ using System.IO;
 using System;
 using AS4.Soap;
 
-namespace EESSI.AS4.Security
+namespace AS4.EESSI.Security
 {
     public class Ebms
     {
-        private const string SoapEnvelope = "";
-
         public static void Sign(XmlDocument xml, X509Certificate2 certificate, IEnumerable<string> uris, IEnumerable<Attachment> attachments)
         {
             var binarySecurityToken = new BinarySecurityToken(certificate.GetRawCertData());
@@ -62,7 +60,7 @@ namespace EESSI.AS4.Security
         private static XmlElement GetNodeByXpath(XmlDocument xml, string xpath)
         {
             var namespaceManager = new XmlNamespaceManager(xml.NameTable);
-            namespaceManager.AddNamespace("s", SoapEnvelope);
+            namespaceManager.AddNamespace("s", Soap.Namespaces.SoapEnvelope);
             namespaceManager.AddNamespace("wsse", XmlSecurityExtensions.Namespaces.WebServiceSecurityExtensions);
             namespaceManager.AddNamespace("ds", XmlSecurityExtensions.Namespaces.DigitalSignature);
             return xml.SelectSingleNode(xpath, namespaceManager) as XmlElement;

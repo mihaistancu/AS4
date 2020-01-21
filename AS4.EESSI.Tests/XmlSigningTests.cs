@@ -1,9 +1,10 @@
-﻿using AS4.Serialization;
+﻿using AS4.EESSI.Security;
+using AS4.Serialization;
 using AS4.Soap;
 using AS4.Tests.Factories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace EESSI.AS4.Tests
+namespace AS4.EESSI.Tests
 {
     [TestClass]
     public class XmlSigningTests
@@ -44,8 +45,8 @@ namespace EESSI.AS4.Tests
             var certificate = Certificates.CreateSelfSigned();
             var uris = new []{envelope.Header.Messaging.Id, envelope.Body.Id};
             
-            //Ebms.Sign(xml, certificate, uris, attachments);
-            //Ebms.VerifySignature(xml, attachments);
+            Ebms.Sign(xml, certificate, uris, attachments);
+            Ebms.VerifySignature(xml, attachments);
         }
     }
 }

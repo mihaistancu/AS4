@@ -7,8 +7,8 @@
     <ProjectGuid>{C104F847-BE05-4E39-9889-C5FF7E0367D5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EESSI.AS4</RootNamespace>
-    <AssemblyName>EESSI.AS4</AssemblyName>
+    <RootNamespace>AS4.EESSI</RootNamespace>
+    <AssemblyName>AS4.EESSI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

@@ -8,7 +8,7 @@ using System.Security.Cryptography.Xml;
 using System.Xml;
 using XmlSecurityExtensions;
 
-namespace EESSI.AS4
+namespace AS4.EESSI.Security
 {
     public class Xades
     {

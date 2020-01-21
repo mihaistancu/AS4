@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS4", "AS4.csproj", "{5169D9D8-5532-4CEE-84CE-9E5F0E8F185C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS4", "AS4\AS4.csproj", "{5169D9D8-5532-4CEE-84CE-9E5F0E8F185C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS4.Tests", "..\AS4.Tests\AS4.Tests.csproj", "{48D2D18B-0552-4389-A3B4-C757BE387159}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS4.Tests", "AS4.Tests\AS4.Tests.csproj", "{48D2D18B-0552-4389-A3B4-C757BE387159}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EESSI.AS4", "..\EESSI.AS4\EESSI.AS4.csproj", "{C104F847-BE05-4E39-9889-C5FF7E0367D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS4.EESSI", "AS4.EESSI\AS4.EESSI.csproj", "{C104F847-BE05-4E39-9889-C5FF7E0367D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlSecurityExtensions", "..\XmlSecurityExtensions\XmlSecurityExtensions.csproj", "{8BCFB565-E6D0-485E-8514-7AF949B013E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlSecurityExtensions", "XmlSecurityExtensions\XmlSecurityExtensions.csproj", "{8BCFB565-E6D0-485E-8514-7AF949B013E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EESSI.AS4.Tests", "..\EESSI.AS4.Tests\EESSI.AS4.Tests.csproj", "{684A1CEF-C888-425C-A89F-30828A08AD9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS4.EESSI.Tests", "AS4.EESSI.Tests\AS4.EESSI.Tests.csproj", "{684A1CEF-C888-425C-A89F-30828A08AD9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

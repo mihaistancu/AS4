@@ -6,8 +6,8 @@
     <ProjectGuid>{684A1CEF-C888-425C-A89F-30828A08AD9B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EESSI.AS4.Tests</RootNamespace>
-    <AssemblyName>EESSI.AS4.Tests</AssemblyName>
+    <RootNamespace>AS4.EESSI.Tests</RootNamespace>
+    <AssemblyName>AS4.EESSI.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -64,9 +64,9 @@
       <Project>{5169d9d8-5532-4cee-84ce-9e5f0e8f185c}</Project>
       <Name>AS4</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EESSI.AS4\EESSI.AS4.csproj">
+    <ProjectReference Include="..\AS4.EESSI\AS4.EESSI.csproj">
       <Project>{c104f847-be05-4e39-9889-c5ff7e0367d5}</Project>
-      <Name>EESSI.AS4</Name>
+      <Name>AS4.EESSI</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
