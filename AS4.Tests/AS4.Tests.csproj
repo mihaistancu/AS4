@@ -88,7 +88,6 @@
     <Compile Include="Asserts\EnvelopeAssert.cs" />
     <Compile Include="MimeSerializationTests.cs" />
     <Compile Include="Factories\Attachments.cs" />
-    <Compile Include="Factories\Certificates.cs" />
     <Compile Include="Factories\Envelopes.cs" />
     <Compile Include="Asserts\MessageAssert.cs" />
     <Compile Include="Factories\Messages.cs" />

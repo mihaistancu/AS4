@@ -3,6 +3,7 @@ using AS4.Serialization;
 using AS4.Soap;
 using AS4.Tests.Factories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AS4.EESSI.Tests.Factories;
 
 namespace AS4.EESSI.Tests
 {
