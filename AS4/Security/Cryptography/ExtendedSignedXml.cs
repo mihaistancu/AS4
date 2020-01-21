@@ -15,7 +15,7 @@ namespace AS4.Security.Cryptography
 
             SafeCanonicalizationMethods.Add(Namespaces.AttachmentTransform);
         }
-
+        
         public void AddExternalReference(Reference reference)
         {
             var existing = GetReferenceByUri(SignedInfo, reference.Uri);
@@ -53,8 +53,10 @@ namespace AS4.Security.Cryptography
         {
             var xpath = $@"//*[@Id=""{id}""]";
             return Signature.ObjectList.Cast<DataObject>()
-                .SelectMany(d => d.Data.Cast<XmlNode>())
-                .Where(node => node.SelectNodes(xpath).Count == 1);
+                .SelectMany(d => 
+                    d.Data.Cast<XmlNode>()
+                        .SelectMany(x=>x.SelectNodes(xpath).Cast<XmlNode>())
+                    );
         }
     }
 }
