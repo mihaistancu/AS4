@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace AS4.EESSI.Tests
 {
     [TestClass]
-    public class XmlSigningTests
+    public class EbmsTests
     {   
         [TestMethod]
         public void ReceiptIsSignedCorrectly()
