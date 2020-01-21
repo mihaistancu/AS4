@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS4", "AS4.csproj", "{5169D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS4.Tests", "..\AS4.Tests\AS4.Tests.csproj", "{48D2D18B-0552-4389-A3B4-C757BE387159}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EESSI.AS4", "..\EESSI.AS4\EESSI.AS4.csproj", "{C104F847-BE05-4E39-9889-C5FF7E0367D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{48D2D18B-0552-4389-A3B4-C757BE387159}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48D2D18B-0552-4389-A3B4-C757BE387159}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48D2D18B-0552-4389-A3B4-C757BE387159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C104F847-BE05-4E39-9889-C5FF7E0367D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C104F847-BE05-4E39-9889-C5FF7E0367D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C104F847-BE05-4E39-9889-C5FF7E0367D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C104F847-BE05-4E39-9889-C5FF7E0367D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
