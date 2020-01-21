@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MimeKitLite, Version=2.4.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
-      <HintPath>packages\MimeKitLite.2.4.1\lib\net47\MimeKitLite.dll</HintPath>
+    <Reference Include="MimeKitLite, Version=2.5.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKitLite.2.5.0\lib\net47\MimeKitLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -78,9 +78,6 @@
     <Compile Include="Soap\UserMessage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\XmlSecurityExtensions\XmlSecurityExtensions.csproj">
       <Project>{8bcfb565-e6d0-485e-8514-7af949b013e7}</Project>
       <Name>XmlSecurityExtensions</Name>
@@ -88,6 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
