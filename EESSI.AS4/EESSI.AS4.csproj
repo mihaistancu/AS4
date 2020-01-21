@@ -51,6 +51,10 @@
       <Project>{5169d9d8-5532-4cee-84ce-9e5f0e8f185c}</Project>
       <Name>AS4</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XmlSecurityExtensions\XmlSecurityExtensions.csproj">
+      <Project>{8BCFB565-E6D0-485E-8514-7AF949B013E7}</Project>
+      <Name>XmlSecurityExtensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

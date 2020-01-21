@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace AS4.Security.Cryptography
+namespace XmlSecurityExtensions
 {
     public class NonCloseableStream: Stream
     {

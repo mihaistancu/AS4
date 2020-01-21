@@ -1,5 +1,4 @@
-﻿using AS4.Security.Cryptography;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
@@ -7,6 +6,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using XmlSecurityExtensions;
 
 namespace EESSI.AS4
 {

@@ -1,13 +1,10 @@
 ﻿using System.Security.Cryptography.Xml;
 using System.Xml;
 
-namespace AS4.Security.Cryptography
+namespace XmlSecurityExtensions
 {
     public class SecurityTokenReference : KeyInfoClause
     {
-        private const string WebServiceSecurityExtensions = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd";
-        private const string X509TokenProfile = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3";
-
         private readonly string referenceId;
 
         public SecurityTokenReference(string referenceId)
@@ -19,10 +16,10 @@ namespace AS4.Security.Cryptography
         {
             var xmlDocument = new XmlDocument {PreserveWhitespace = true};
 
-            var securityTokenReference = xmlDocument.CreateElement("SecurityTokenReference", WebServiceSecurityExtensions);
+            var securityTokenReference = xmlDocument.CreateElement("SecurityTokenReference", Namespaces.WebServiceSecurityExtensions);
 
-            var reference = xmlDocument.CreateElement("Reference", WebServiceSecurityExtensions);
-            reference.SetAttribute("ValueType", X509TokenProfile);
+            var reference = xmlDocument.CreateElement("Reference", Namespaces.WebServiceSecurityExtensions);
+            reference.SetAttribute("ValueType", Namespaces.X509TokenProfile);
             reference.SetAttribute("URI", "#" + referenceId);
 
             securityTokenReference.AppendChild(reference);

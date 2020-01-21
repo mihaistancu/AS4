@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5169D9D8-5532-4CEE-84CE-9E5F0E8F185C}</ProjectGuid>
+    <ProjectGuid>{8BCFB565-E6D0-485E-8514-7AF949B013E7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AS4</RootNamespace>
-    <AssemblyName>AS4</AssemblyName>
+    <RootNamespace>XmlSecurityExtensions</RootNamespace>
+    <AssemblyName>XmlSecurityExtensions</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MimeKitLite, Version=2.4.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
-      <HintPath>packages\MimeKitLite.2.4.1\lib\net47\MimeKitLite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Security" />
@@ -46,49 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="As4Client.cs" />
-    <Compile Include="As4Message.cs" />
-    <Compile Include="Serialization\MimeEntityToAs4Message.cs" />
-    <Compile Include="Serialization\EnvelopeToXml.cs" />
-    <Compile Include="Serialization\As4MessageToMimeEntity.cs" />
-    <Compile Include="Serialization\XmlToEnvelope.cs" />
-    <Compile Include="Soap\Attachment.cs" />
-    <Compile Include="Security\Security.cs" />
-    <Compile Include="Security\Signature.cs" />
-    <Compile Include="Security\XmlDocumentExtensions.cs" />
-    <Compile Include="Security\BinarySecurityToken.cs" />
+    <Compile Include="AttachmentContentSignatureTransform.cs" />
+    <Compile Include="ExtendedSignedXml.cs" />
+    <Compile Include="Namespaces.cs" />
+    <Compile Include="NonCloseableStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Soap\Body.cs" />
-    <Compile Include="Soap\CollaborationInfo.cs" />
-    <Compile Include="Soap\Envelope.cs" />
-    <Compile Include="Soap\Error.cs" />
-    <Compile Include="Soap\Header.cs" />
-    <Compile Include="Soap\MessageInfo.cs" />
-    <Compile Include="Soap\Messaging.cs" />
-    <Compile Include="Soap\Namespaces.cs" />
-    <Compile Include="Soap\NonRepudiationInformation.cs" />
-    <Compile Include="Soap\PartInfo.cs" />
-    <Compile Include="Soap\Party.cs" />
-    <Compile Include="Soap\PartyId.cs" />
-    <Compile Include="Soap\PartyInfo.cs" />
-    <Compile Include="Soap\PayloadInfo.cs" />
-    <Compile Include="Soap\Property.cs" />
-    <Compile Include="Soap\PullRequest.cs" />
-    <Compile Include="Soap\Receipt.cs" />
-    <Compile Include="Soap\RoutingInput.cs" />
-    <Compile Include="Soap\Service.cs" />
-    <Compile Include="Soap\SignalMessage.cs" />
-    <Compile Include="Soap\To.cs" />
-    <Compile Include="Soap\UserMessage.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\XmlSecurityExtensions\XmlSecurityExtensions.csproj">
-      <Project>{8bcfb565-e6d0-485e-8514-7af949b013e7}</Project>
-      <Name>XmlSecurityExtensions</Name>
-    </ProjectReference>
+    <Compile Include="SecurityTokenReference.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
