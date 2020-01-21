@@ -53,10 +53,6 @@
     <Compile Include="Serialization\As4MessageToMimeEntity.cs" />
     <Compile Include="Serialization\XmlToEnvelope.cs" />
     <Compile Include="Soap\Attachment.cs" />
-    <Compile Include="Security\Security.cs" />
-    <Compile Include="Security\Signature.cs" />
-    <Compile Include="Security\XmlDocumentExtensions.cs" />
-    <Compile Include="Security\BinarySecurityToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Soap\Body.cs" />
     <Compile Include="Soap\CollaborationInfo.cs" />
@@ -89,6 +85,9 @@
       <Project>{8bcfb565-e6d0-485e-8514-7af949b013e7}</Project>
       <Name>XmlSecurityExtensions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Security\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

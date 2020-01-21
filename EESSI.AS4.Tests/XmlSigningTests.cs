@@ -1,11 +1,9 @@
-﻿using System.Linq;
-using AS4.Security;
-using AS4.Serialization;
+﻿using AS4.Serialization;
 using AS4.Soap;
 using AS4.Tests.Factories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace AS4.Tests
+namespace EESSI.AS4.Tests
 {
     [TestClass]
     public class XmlSigningTests
@@ -45,8 +43,9 @@ namespace AS4.Tests
             var xml = EnvelopeToXml.Serialize(envelope);
             var certificate = Certificates.CreateSelfSigned();
             var uris = new []{envelope.Header.Messaging.Id, envelope.Body.Id};
-            xml.Sign(certificate, uris, attachments);
-            xml.VerifySignature(attachments);
+            
+            //Ebms.Sign(xml, certificate, uris, attachments);
+            //Ebms.VerifySignature(xml, attachments);
         }
     }
 }

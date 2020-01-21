@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EESSI.AS4", "..\EESSI.AS4\E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlSecurityExtensions", "..\XmlSecurityExtensions\XmlSecurityExtensions.csproj", "{8BCFB565-E6D0-485E-8514-7AF949B013E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EESSI.AS4.Tests", "..\EESSI.AS4.Tests\EESSI.AS4.Tests.csproj", "{684A1CEF-C888-425C-A89F-30828A08AD9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8BCFB565-E6D0-485E-8514-7AF949B013E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BCFB565-E6D0-485E-8514-7AF949B013E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BCFB565-E6D0-485E-8514-7AF949B013E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{684A1CEF-C888-425C-A89F-30828A08AD9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{684A1CEF-C888-425C-A89F-30828A08AD9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{684A1CEF-C888-425C-A89F-30828A08AD9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{684A1CEF-C888-425C-A89F-30828A08AD9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
