@@ -48,10 +48,12 @@
   <ItemGroup>
     <Compile Include="As4Client.cs" />
     <Compile Include="As4Message.cs" />
+    <Compile Include="Security\BinarySecurityToken.cs" />
+    <Compile Include="Security\Security.cs" />
     <Compile Include="Serialization\MimeEntityToAs4Message.cs" />
-    <Compile Include="Serialization\EnvelopeToXml.cs" />
+    <Compile Include="Serialization\ObjectToXml.cs" />
     <Compile Include="Serialization\As4MessageToMimeEntity.cs" />
-    <Compile Include="Serialization\XmlToEnvelope.cs" />
+    <Compile Include="Serialization\XmlToObject.cs" />
     <Compile Include="Soap\Attachment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Soap\Body.cs" />
@@ -83,9 +85,7 @@
       <Name>XmlSecurityExtensions</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Security\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

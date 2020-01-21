@@ -35,8 +35,8 @@ namespace AS4.Tests
 
         private void CheckSerialization(Envelope expected)
         {
-            var xml = EnvelopeToXml.Serialize(expected);
-            var actual = XmlToEnvelope.Deserialize(xml);
+            var xml = ObjectToXml.Serialize(expected);
+            var actual = XmlToObject.Deserialize<Envelope>(xml);
             EnvelopeAssert.AreEqual(expected, actual);
         }
     }

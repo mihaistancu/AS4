@@ -44,8 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\EbmsSigner.cs" />
     <Compile Include="Security\Xades.cs" />
-    <Compile Include="Security\Ebms.cs" />
+    <Compile Include="Security\EbmsVerifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AS4\AS4.csproj">

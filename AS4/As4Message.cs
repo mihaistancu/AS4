@@ -17,7 +17,7 @@ namespace AS4
 
         public void Set(Envelope envelope)
         {
-            SoapEnvelope = EnvelopeToXml.Serialize(envelope);
+            SoapEnvelope = ObjectToXml.Serialize(envelope);
         }
     }
 }

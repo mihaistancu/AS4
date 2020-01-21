@@ -42,12 +42,23 @@ namespace AS4.EESSI.Tests
 
         private void CheckSigning(Envelope envelope, params Attachment[] attachments)
         {
-            var xml = EnvelopeToXml.Serialize(envelope);
-            var certificate = Certificates.CreateSelfSigned();
-            var uris = new []{envelope.Header.Messaging.Id, envelope.Body.Id};
-            
-            Ebms.Sign(xml, certificate, uris, attachments);
-            Ebms.VerifySignature(xml, attachments);
+            var xml = ObjectToXml.Serialize(envelope);
+
+            var ebmsSigner = new EbmsSigner
+            {
+                Xml = xml,
+                Certificate = Certificates.CreateSelfSigned(),
+                Uris = new []{envelope.Header.Messaging.Id, envelope.Body.Id},
+                Attachments = attachments
+            };
+            ebmsSigner.Sign();
+
+            var ebmsVerifier = new EbmsVerifier
+            {
+                Xml = xml,
+                Attachments = attachments
+            };
+            ebmsVerifier.Verify();
         }
     }
 }

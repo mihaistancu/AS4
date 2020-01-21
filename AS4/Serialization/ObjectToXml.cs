@@ -4,11 +4,11 @@ using AS4.Soap;
 
 namespace AS4.Serialization
 {
-    public class EnvelopeToXml
+    public class ObjectToXml
     {
         private static readonly XmlSerializerNamespaces SerializerNamespaces;
 
-        static EnvelopeToXml()
+        static ObjectToXml()
         {
             SerializerNamespaces = new XmlSerializerNamespaces();
             SerializerNamespaces.Add("s", Namespaces.SoapEnvelope);
@@ -19,13 +19,13 @@ namespace AS4.Serialization
             SerializerNamespaces.Add("mh", Namespaces.MultiHop);
         }
 
-        public static XmlDocument Serialize(Envelope message)
+        public static XmlDocument Serialize<T>(T item)
         {
             var xml = new XmlDocument {PreserveWhitespace = true};
-            var serializer = new XmlSerializer(message.GetType());
+            var serializer = new XmlSerializer(item.GetType());
             using(var xmlWriter = xml.CreateNavigator().AppendChild())
             {
-                serializer.Serialize(xmlWriter, message, SerializerNamespaces);
+                serializer.Serialize(xmlWriter, item, SerializerNamespaces);
             }
             return xml;
         }
