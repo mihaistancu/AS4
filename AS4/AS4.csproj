@@ -49,7 +49,17 @@
     <Compile Include="As4Client.cs" />
     <Compile Include="As4Message.cs" />
     <Compile Include="Security\BinarySecurityToken.cs" />
+    <Compile Include="Security\Cert.cs" />
+    <Compile Include="Security\CertDigest.cs" />
+    <Compile Include="Security\DataObjectFormat.cs" />
+    <Compile Include="Security\DigestMethod.cs" />
+    <Compile Include="Security\IssuerSerial.cs" />
+    <Compile Include="Security\QualifyingProperties.cs" />
     <Compile Include="Security\Security.cs" />
+    <Compile Include="Security\SignedDataObjectProperties.cs" />
+    <Compile Include="Security\SignedProperties.cs" />
+    <Compile Include="Security\SignedSignatureProperties.cs" />
+    <Compile Include="Security\SigningCertificate.cs" />
     <Compile Include="Serialization\MimeEntityToAs4Message.cs" />
     <Compile Include="Serialization\ObjectToXml.cs" />
     <Compile Include="Serialization\As4MessageToMimeEntity.cs" />

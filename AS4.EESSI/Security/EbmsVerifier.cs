@@ -15,12 +15,7 @@ namespace AS4.EESSI.Security
 
         public bool Verify()
         {   
-            var namespaces = new XmlNamespaceManager(Xml.NameTable);
-            namespaces.AddNamespace("s", Soap.Namespaces.SoapEnvelope);
-            namespaces.AddNamespace("wsse", XmlSecurityExtensions.Namespaces.WebServiceSecurityExtensions);
-            namespaces.AddNamespace("ds", XmlSecurityExtensions.Namespaces.DigitalSignature);
-
-            var signatureXml = Xml.SelectSingleNode("/s:Envelope/s:Header/wsse:Security/ds:Signature", namespaces) as XmlElement;
+            var signatureXml = GetSignature();
 
             var signedXml = new ExtendedSignedXml(Xml);
             signedXml.LoadXml(signatureXml);
@@ -36,10 +31,27 @@ namespace AS4.EESSI.Security
                 signedXml.AddExternalReference(reference);
             }
             
-            var securityXml = Xml.SelectSingleNode("/s:Envelope/s:Header/wsse:Security", namespaces);
+            var securityXml = GetSecurity();
             var security = XmlToObject.Deserialize<AS4.Security.Security>(securityXml);
             var certificate = new X509Certificate2(security.BinarySecurityToken.Value);
             return signedXml.CheckSignature(certificate.GetRSAPublicKey());
+        }
+
+        private XmlElement GetSecurity()
+        {
+            var namespaces = new XmlNamespaceManager(Xml.NameTable);
+            namespaces.AddNamespace("s", Soap.Namespaces.SoapEnvelope);
+            namespaces.AddNamespace("wsse", XmlSecurityExtensions.Namespaces.WebServiceSecurityExtensions);
+            return Xml.SelectSingleNode("/s:Envelope/s:Header/wsse:Security", namespaces) as XmlElement;
+        }
+
+        private XmlElement GetSignature()
+        {
+            var namespaces = new XmlNamespaceManager(Xml.NameTable);
+            namespaces.AddNamespace("s", Soap.Namespaces.SoapEnvelope);
+            namespaces.AddNamespace("wsse", XmlSecurityExtensions.Namespaces.WebServiceSecurityExtensions);
+            namespaces.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
+            return Xml.SelectSingleNode("/s:Envelope/s:Header/wsse:Security/ds:Signature", namespaces) as XmlElement;
         }
     }
 }

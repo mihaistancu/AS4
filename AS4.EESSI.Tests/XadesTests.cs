@@ -20,10 +20,19 @@ namespace AS4.EESSI.Tests
                     </sed:StructuredElectronicDocument>
                 </sbdh:StandardBusinessDocument>");
             
-            var xades = new Xades();
-            xades.Sign(xml, Certificates.CreateSelfSigned());
+            var xadesSigner = new XadesSigner
+            {
+                Certificate = Certificates.CreateSelfSigned(),
+                Xml = xml
+            };
+            xadesSigner.Sign();
 
-            xades.VerifySignature(xml);
+            var xadesVerifier = new XadesVerifier
+            {
+                Xml = xml
+            };
+            var isSignatureCorrect = xadesVerifier.Verify();
+            Assert.IsTrue(isSignatureCorrect);
         }
     }
 }

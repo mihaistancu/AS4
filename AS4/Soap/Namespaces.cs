@@ -23,5 +23,7 @@
         public const string Base64Binary = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary";
 
         public const string X509TokenProfile = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3";
+
+        public const string AdvancedElectronicSignature = "http://uri.etsi.org/01903/v1.3.2#";
     }
 }
