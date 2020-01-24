@@ -37,6 +37,7 @@ namespace AS4.EESSI.Security
 
             foreach (Attachment attachment in Attachments)
             {
+                attachment.Stream.Position = 0;
                 Stream encryptedStream = new MemoryStream();
                 encryptedStream.Write(encryptionAlgorithm.IV, 0, encryptionAlgorithm.IV.Length);
 

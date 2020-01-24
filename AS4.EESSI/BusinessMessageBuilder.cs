@@ -19,9 +19,6 @@ namespace AS4.EESSI
             var envelope = CreateSoapEnvelope();
             envelope.Header.Messaging.UserMessage.PartyInfo.From.PartyId.Value = Sender.Code;
             envelope.Header.Messaging.UserMessage.PartyInfo.To.PartyId.Value = Receiver.Code;
-
-            
-            
             
             Sed.Stream.Position = 0;
             var compressedStream = new MemoryStream();

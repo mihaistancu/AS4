@@ -6,7 +6,7 @@ using AS4.Soap;
 
 namespace AS4.EESSI
 {
-    public class SedAttachmentBuilder
+    public class SedBuilder
     {
         public XmlDocument Xml { get; set; }
         public Institution Sender { get;set; }
