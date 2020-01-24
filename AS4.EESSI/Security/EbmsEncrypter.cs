@@ -15,27 +15,6 @@ namespace AS4.EESSI.Security
         public List<Attachment> Attachments { get; set; }
         public byte[] PublicKeyInAsn1Format { get; set; }
         
-        private Stream EncryptData(Stream plainTextStream, SymmetricAlgorithm encryptionAlgorithm)
-        {
-            Stream encryptedStream = new MemoryStream();
-            encryptedStream.Write(encryptionAlgorithm.IV, 0, encryptionAlgorithm.IV.Length);
-
-            var cryptoStream = new CryptoStream(encryptedStream, encryptionAlgorithm.CreateEncryptor(), CryptoStreamMode.Write);
-         
-            plainTextStream.Position = 0;
-            try
-            {
-                plainTextStream.CopyTo(cryptoStream);
-            }
-            finally
-            {
-                cryptoStream.FlushFinalBlock();
-            }
-            encryptedStream.Position = 0;
-            
-            return encryptedStream;
-        }
-
         public void Encrypt()
         {
             var encryptionAlgorithm = new AesGcm {KeySize = 128};
@@ -58,8 +37,12 @@ namespace AS4.EESSI.Security
 
             foreach (Attachment attachment in Attachments)
             {
-                Stream encryptedStream = EncryptData(attachment.Stream, encryptionAlgorithm);
+                Stream encryptedStream = new MemoryStream();
+                encryptedStream.Write(encryptionAlgorithm.IV, 0, encryptionAlgorithm.IV.Length);
 
+                var cryptoStream = new CryptoStream(encryptedStream, encryptionAlgorithm.CreateEncryptor(), CryptoStreamMode.Write);
+                attachment.Stream.CopyTo(cryptoStream);
+                cryptoStream.FlushFinalBlock();
                 attachment.Stream = encryptedStream;
 
                 var encryptedData = new EncryptedData
