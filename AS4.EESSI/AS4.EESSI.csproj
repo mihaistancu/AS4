@@ -43,9 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessPoint.cs" />
-    <Compile Include="CentralServiceNode.cs" />
-    <Compile Include="Institution.cs" />
+    <Compile Include="Endpoints\AccessPoint.cs" />
+    <Compile Include="BusinessMessageBuilder.cs" />
+    <Compile Include="Endpoints\CentralServiceNode.cs" />
+    <Compile Include="Endpoints\Institution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\EbmsDecrypter.cs" />
     <Compile Include="Security\EbmsEncrypter.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Security\XadesSigner.cs" />
     <Compile Include="Security\EbmsVerifier.cs" />
     <Compile Include="Security\XadesVerifier.cs" />
+    <Compile Include="SedBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AS4\AS4.csproj">
