@@ -8,10 +8,13 @@ namespace XmlSecurityExtensions
 {
     public class ExtendedSignedXml : SignedXml
     {
-        public ExtendedSignedXml(XmlDocument xml) : base(xml)
+        static ExtendedSignedXml()
         {
             CryptoConfig.AddAlgorithm(typeof(AttachmentContentSignatureTransform), Namespaces.AttachmentTransform);
+        }
 
+        public ExtendedSignedXml(XmlDocument xml) : base(xml)
+        {
             SafeCanonicalizationMethods.Add(Namespaces.AttachmentTransform);
         }
         
