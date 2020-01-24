@@ -12,7 +12,7 @@ namespace AS4.EESSI.Security
     public class EbmsEncrypter
     {
         public XmlDocument Xml { get; set; }
-        public List<Attachment> Attachments { get; set; }
+        public IEnumerable<Attachment> Attachments { get; set; }
         public byte[] PublicKeyInAsn1Format { get; set; }
         
         public void Encrypt()
@@ -63,8 +63,8 @@ namespace AS4.EESSI.Security
                 encryptedKey.ReferenceList.Add(new DataReference(encryptedData.Id));
             }
 
-            var securityXml = GetSecurity();
-            
+            var securityXml = GetSecurity() ?? CreateSecurity();
+
             foreach (var encryptedData in encryptedDataList)
             {
                 Insert(encryptedData.GetXml(), securityXml);
@@ -87,6 +87,21 @@ namespace AS4.EESSI.Security
             namespaces.AddNamespace("s", Soap.Namespaces.SoapEnvelope);
             namespaces.AddNamespace("wsse", XmlSecurityExtensions.Namespaces.WebServiceSecurityExtensions);
             return Xml.SelectSingleNode("/s:Envelope/s:Header/wsse:Security", namespaces) as XmlElement;
+        }
+
+        private XmlElement GetHeader()
+        {
+            var namespaces = new XmlNamespaceManager(Xml.NameTable);
+            namespaces.AddNamespace("s", Soap.Namespaces.SoapEnvelope);
+            return Xml.SelectSingleNode("/s:Envelope/s:Header", namespaces) as XmlElement;
+        }
+
+        private XmlElement CreateSecurity()
+        {
+            var headerXml = GetHeader();
+            var securityXml = Xml.CreateElement("wsse", "Security", Soap.Namespaces.WebServiceSecurityExtensions);
+            headerXml.AppendChild(securityXml);
+            return securityXml;
         }
     }
 }
