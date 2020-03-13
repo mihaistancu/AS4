@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace AS4.Soap
 {
@@ -16,7 +17,7 @@ namespace AS4.Soap
         [XmlElement(Namespace = Namespaces.ElectronicBusinessMessagingService)]
         public CollaborationInfo CollaborationInfo { get; set; }
 
-        [XmlElement(Namespace = Namespaces.ElectronicBusinessMessagingService)]
-        public PayloadInfo PayloadInfo { get; set; }
+        [XmlArray(Namespace = Namespaces.ElectronicBusinessMessagingService)]
+        public List<PartInfo> PayloadInfo { get; set; }
     }
 }

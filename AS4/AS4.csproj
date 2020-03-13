@@ -79,7 +79,6 @@
     <Compile Include="Soap\Party.cs" />
     <Compile Include="Soap\PartyId.cs" />
     <Compile Include="Soap\PartyInfo.cs" />
-    <Compile Include="Soap\PayloadInfo.cs" />
     <Compile Include="Soap\Property.cs" />
     <Compile Include="Soap\PullRequest.cs" />
     <Compile Include="Soap\Receipt.cs" />

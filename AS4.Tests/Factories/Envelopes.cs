@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AS4.Soap;
 
 namespace AS4.Tests.Factories
@@ -51,9 +52,9 @@ namespace AS4.Tests.Factories
                                 Action = "Send",
                                 ConversationId = "conversation-id"
                             },
-                            PayloadInfo = new PayloadInfo
-                            {
-                                PartInfo = new PartInfo
+                            PayloadInfo = new List<PartInfo>
+                            {   
+                                new PartInfo
                                 {
                                     Reference = "cid:DefaultSED",
                                     PartProperties = new[]
@@ -129,10 +130,9 @@ namespace AS4.Tests.Factories
                                 Action = "Send.response",
                                 ConversationId = "conversation-id"
                             },
-                            PayloadInfo = new PayloadInfo
+                            PayloadInfo = new List<PartInfo>
                             {
-                                PartInfo = new PartInfo
-                                {
+                                new PartInfo {
                                     Reference = "cid:DefaultSED",
                                     PartProperties = new[]
                                     {
@@ -224,10 +224,9 @@ namespace AS4.Tests.Factories
                                 Action = "Send.response",
                                 ConversationId = "conversation-id"
                             },
-                            PayloadInfo = new PayloadInfo
+                            PayloadInfo = new List<PartInfo>
                             {
-                                PartInfo = new PartInfo
-                                {
+                                new PartInfo {
                                     Reference = "cid:DefaultSED",
                                     PartProperties = new[]
                                     {

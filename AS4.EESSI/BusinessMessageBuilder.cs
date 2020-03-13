@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Xml;
 using AS4.EESSI.Endpoints;
 using AS4.EESSI.Security;
 using AS4.Soap;
@@ -28,20 +28,21 @@ namespace AS4.EESSI
             }
             Sed.Stream = compressedStream;
 
-            envelope.Header.Messaging.UserMessage.PayloadInfo = new PayloadInfo
+            var payloadInfo = new List<PartInfo>();
+            var sedPart = new PartInfo
             {
-                PartInfo = new PartInfo
+                Reference = $"cid:{Sed.ContentId}",
+                PartProperties = new[]
                 {
-                    Reference = $"cid:{Sed.ContentId}",
-                    PartProperties = new[]
-                    {
-                        new Property {Name = "PartType", Value = "SED"},
-                        new Property {Name = "MimeType", Value = "application/xml"},
-                        new Property {Name = "CompressionType", Value = "application/gzip"}
-                    }
+                    new Property {Name = "PartType", Value = "SED"},
+                    new Property {Name = "MimeType", Value = "application/xml"},
+                    new Property {Name = "CompressionType", Value = "application/gzip"}
                 }
             };
-
+            payloadInfo.Add(sedPart);
+            
+            envelope.Header.Messaging.UserMessage.PayloadInfo = payloadInfo;
+            
             var message= new As4Message();
             message.Set(envelope);
             message.Attachments.Add(Sed);
