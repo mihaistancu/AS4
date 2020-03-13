@@ -57,7 +57,7 @@ namespace AS4.Tests.Factories
                                 new PartInfo
                                 {
                                     Reference = "cid:DefaultSED",
-                                    PartProperties = new[]
+                                    PartProperties = new List<Property>
                                     {
                                         new Property {Name = "PartType", Value = "SED"},
                                         new Property {Name = "MimeType", Value = "application/xml"},
@@ -134,7 +134,7 @@ namespace AS4.Tests.Factories
                             {
                                 new PartInfo {
                                     Reference = "cid:DefaultSED",
-                                    PartProperties = new[]
+                                    PartProperties = new List<Property>
                                     {
                                         new Property {Name = "PartType", Value = "SED"},
                                         new Property {Name = "MimeType", Value = "application/xml"},
@@ -228,7 +228,7 @@ namespace AS4.Tests.Factories
                             {
                                 new PartInfo {
                                     Reference = "cid:DefaultSED",
-                                    PartProperties = new[]
+                                    PartProperties = new List<Property>
                                     {
                                         new Property {Name = "PartType", Value = "SED"},
                                         new Property {Name = "MimeType", Value = "application/xml"},

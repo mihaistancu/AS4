@@ -37,8 +37,9 @@ namespace AS4.EESSI
             return new Attachment
             {
                 ContentId = "DefaultSED",
-                ContentType = "application/gzip",
-                Stream = sedStream
+                ContentType = "application/xml",
+                Stream = sedStream,
+                IsCompressionRequired = true
             };
         }
 
