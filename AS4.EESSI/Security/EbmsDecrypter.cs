@@ -26,9 +26,9 @@ namespace AS4.EESSI.Security
             foreach (var attachment in Attachments)
             {
                 attachment.Stream.Position = 0;
-                var iv = new byte[symmetricAlgorithm.IV.Length];
-                attachment.Stream.Read(iv, 0, iv.Length);
-                symmetricAlgorithm.IV = iv;
+                var nonce = new byte[AesGcm.NonceSize / 8];
+                attachment.Stream.Read(nonce, 0, nonce.Length);
+                symmetricAlgorithm.Nonce = nonce;
 
                 var decryptedStream = new MemoryStream();
                 var cryptoStream = new CryptoStream(attachment.Stream, symmetricAlgorithm.CreateDecryptor(), CryptoStreamMode.Read);

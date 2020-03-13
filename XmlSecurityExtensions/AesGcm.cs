@@ -2,18 +2,14 @@
 
 namespace XmlSecurityExtensions
 {
-    public class AesGcm : SymmetricAlgorithm
+    public class AesGcm : Aes
     {
-        private readonly RandomNumberGenerator random;
+        public const int NonceSize = 96;
 
-        public override KeySizes[] LegalBlockSizes => new[] {new KeySizes(128, 128, 0)};
-
-        public override KeySizes[] LegalKeySizes => new[] {new KeySizes(128, 256, 64)};
-
-        public AesGcm()
+        public byte[] Nonce
         {
-            BlockSizeValue = 128;
-            random = new RNGCryptoServiceProvider();
+            get { return IVValue; }
+            set { IVValue = value; }
         }
 
         public override ICryptoTransform CreateEncryptor(byte[] rgbKey, byte[] rgbIV)
@@ -28,16 +24,22 @@ namespace XmlSecurityExtensions
 
         public override void GenerateKey()
         {
-            byte[] key = new byte[KeySize / 8];
-            random.GetBytes(key);
-            Key = key;
+            KeyValue = GetRandom(KeySize / 8);
         }
 
         public override void GenerateIV()
         {
-            byte[] iv = new byte[BlockSize / 8];
-            random.GetBytes(iv);
-            IV = iv;
+            Nonce = GetRandom(NonceSize / 8);
+        }
+
+        private static byte[] GetRandom(int length)
+        {
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                var result = new byte[length];
+                rng.GetBytes(result);
+                return result;
+            }
         }
     }
 }
