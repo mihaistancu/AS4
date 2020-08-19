@@ -3,7 +3,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace AS4.EESSI.Endpoints
 {
-    public class Institution
+    public class Institution : IParticipant
     {
         public string Code { get; set; }
         public X509Certificate2 Business { get; set; }

@@ -4,13 +4,14 @@ using AS4.EESSI.Security;
 
 namespace AS4.EESSI.Endpoints
 {
-    public class AccessPoint
+    public class AccessPoint: IParticipant
     {
         public string Code { get; set; }
         public X509Certificate2 TlsExternal { get; set; }
         public X509Certificate2 TlsInternal { get; set; }
         public X509Certificate2 Ebms { get; set; }
-        public Uri Inbound { get; set; }
+        public Uri BusinessInbound { get; set; }
+        public Uri SystemInbound { get; set; }
         public Uri Inbox { get; set; }
         public Uri Outbox { get; set; }
 
@@ -28,7 +29,7 @@ namespace AS4.EESSI.Endpoints
             {
                 Certificate = TlsExternal
             };
-            return client.Send(destination.Inbound, message);
+            return client.Send(destination.BusinessInbound, message);
         }
     }
 }

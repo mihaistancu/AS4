@@ -10,8 +10,8 @@ namespace AS4.EESSI
 {
     public class BusinessMessageBuilder
     {
-        public Institution Sender { get; set; }
-        public Institution Receiver { get; set; }
+        public IParticipant Sender { get; set; }
+        public IParticipant Receiver { get; set; }
         public string UseCase { get; set; }
         public Attachment Sed { get; set; }
         public List<Attachment> Attachments { get; set; }
